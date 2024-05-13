@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <TTree.h>
 #include <TFile.h>
+#include <string>
 
 void help()
 {
@@ -74,7 +75,28 @@ int main(int argc, char *argv[])
 	std::unique_ptr<TFile> outFile(TFile::Open("testFile.root", "RECREATE"));
 	auto tree = std::make_unique<TTree>("TRREEEE", "ACTUALLY THE TREE");
 
-	for (unsigned int j = 0; j < channelsCount; j++) {
+	/* Branch branch; */
+	/* tree->Branch("channel", &branchStruct, vars.c_str()); */
+
+	std::vector<uint8_t>WCM;
+	tree->Branch("wcm", &WCM);
+
+	std::vector<uint16_t>MAX;
+	tree->Branch("max", &MAX);
+
+	std::vector<uint32_t>TOT;
+	tree->Branch("tot", &TOT);
+
+	std::vector<uint32_t>INTEGRAL;
+	tree->Branch("intergral", &INTEGRAL);
+
+	std::vector<uint32_t>TIME;
+	tree->Branch("time", &TIME);
+
+	std::vector<uint64_t>COUNTER;
+	tree->Branch("counter", &COUNTER);
+
+	for (unsigned int j = 0; j < 6; j++) {
 		TdmsChannel *ch = group->getChannel(j);
 		if (ch) {
 			unsigned long long dataCount = ch->getDataCount();
@@ -91,44 +113,36 @@ int main(int argc, char *argv[])
 				std::vector<double> data = ch->getDataVector();
 
 				if (j % 6 == 0) { // WCM
+					auto count = std::to_string(dataCount);
+					/* std::string	vars = "wcm["+count+"]/b:max["+count+"]/s:tot["+count+"]/i:integral["+count+"]/i:time["+count+"]/i:counter["+count+"]/l"; */
+					/* tree->Branch(("channel_"+std::to_string(j/6)).c_str(), &branchStruct, vars.c_str()); */
+					/* tree->Branch(("channel_"+std::to_string(j/6)).c_str(), &branch); */
+
 					std::cout << "wcm" << std::endl;
-					std::vector<uint8_t>WCM(data.begin(), data.end());
-					std::cout << WCM.size() << std::endl;
-					tree->Branch(ch->getName().c_str(), &WCM);
-					/* for (auto && item : WCM) { */
-					/* 	std::cout << std::to_string(item) << std::endl; */
-					/* } */
+					WCM = std::vector<uint8_t>(data.begin(),data.end());
 				}
 				else if (j % 6 == 1) { // MAXIMUM
 					std::cout << "MAX" << std::endl;
-					std::vector<uint16_t> _data(data.begin(), data.end());
-					tree->Branch(ch->getName().c_str(), &_data);
+					MAX = std::vector<uint16_t>(data.begin(),data.end());
 				}
 				else if (j % 6 == 2) { // ToT
 					std::cout << "Tot" << std::endl;
-					std::vector<uint32_t> _data(data.begin(), data.end());
-					tree->Branch(ch->getName().c_str(), &_data);
+					TOT = std::vector<uint32_t>(data.begin(),data.end());
 				}
 				else if (j % 6 == 3) { // Integral
 					std::cout << "Integral" << std::endl;
-					std::vector<uint32_t> _data(data.begin(), data.end());
-					tree->Branch(ch->getName().c_str(), &_data);
+					INTEGRAL = std::vector<uint32_t>(data.begin(),data.end());
 				}
 				else if (j % 6 == 4) { // Time
 					std::cout << "Time" << std::endl;
-					std::vector<uint32_t> _data(data.begin(), data.end());
-					tree->Branch(ch->getName().c_str(), &_data);
+					TIME = std::vector<uint32_t>(data.begin(),data.end());
 				}
 				else if (j % 6 == 5) { //Counter
 					std::cout << "Counter" << std::endl;
-					std::vector<uint64_t> _data(data.begin(), data.end());
-					tree->Branch(ch->getName().c_str(), &_data);
-					for (auto && item : _data) {
-						std::cout << std::to_string(item) << std::endl;
-					}
-				}
+					COUNTER = std::vector<uint64_t>(data.begin(),data.end());
 
-				tree->Fill();
+					tree->Fill();
+				}
 
 				std::cout << data.size() << std::endl;
 				if ((type == TdmsChannel::tdsTypeComplexSingleFloat) || (type == TdmsChannel::tdsTypeComplexDoubleFloat)){
@@ -171,6 +185,7 @@ int main(int argc, char *argv[])
 				ch->freeMemory();
 		}
 	}
+	/* tree->Fill(); */
 	tree->Write();
 
 	printf("\nSuccessfully parsed file '%s' (size: %lld bytes).\n", fileName.c_str(), parser.fileSize());

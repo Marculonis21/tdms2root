@@ -25,6 +25,8 @@ TTree.h
 -
 TFile.h
 -
+string
+-
 
 /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/tdmsReader/TdmsChannel.h
 TdmsObject.h
