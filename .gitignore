@@ -1,6 +1,7 @@
 # Prerequisites
 *.d
 data/
+*.root
 
 # Compiled Object files
 *.slo
