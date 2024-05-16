@@ -3,6 +3,7 @@
 #include "tdmsReader/TdmsChannel.h"
 #include <TBranch.h>
 #include <cstdint>
+
 #include <math.h>
 #include <memory>
 #include <string.h>
@@ -21,16 +22,6 @@ void help()
 	std::cout << "-s: store channel data values" << std::endl;
 	std::cout << "-v: verbose output" << std::endl;
 }
-
-struct BranchStruct
-{
-	std::vector<uint8_t>WCM;
-	std::vector<uint16_t>MAX;
-	std::vector<uint32_t>TOT;
-	std::vector<uint32_t>INTEGRAL;
-	std::vector<uint32_t>TIME;
-	std::vector<uint64_t>COUNTER;
-};
 
 void errorMessage()
 {
@@ -105,7 +96,6 @@ void treeFill(TTree *tree, TdmsGroup *group, int channelsID, int groupID)
 	tree->Fill();
 	tree->ResetBranchAddresses();
 }
-
 
 int main(int argc, char *argv[])
 {
