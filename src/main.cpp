@@ -3,7 +3,7 @@
 #include "tdmsReader/TdmsChannel.h"
 #include <TBranch.h>
 #include <cstdint>
-
+#include <cstdio>
 #include <math.h>
 #include <memory>
 #include <string.h>
@@ -22,6 +22,17 @@ void help()
 	std::cout << "-s: store channel data values" << std::endl;
 	std::cout << "-v: verbose output" << std::endl;
 }
+
+class BranchStruct
+{
+public:
+	uint8_t WCM;
+	uint16_t MAX;
+	uint32_t TOT;
+	uint32_t INTEGRAL;
+	uint32_t TIME;
+	uint64_t COUNTER;
+};
 
 void errorMessage()
 {
@@ -42,6 +53,7 @@ void treeFill(TTree *tree, TdmsGroup *group, int channelsID, int groupID)
 	/* BranchStruct branchStruct; */
 	std::string j = std::to_string(channelsID);
 	/* std::string	vars = "wcm[count"+j+"]/b:max[count"+j+"]/s:tot[count"+j+"]/i:integral[count"+j+"]/i:time[count"+j+"]/i:counter[count"+j+"]/l"; */
+	/* std::string	vars = "wcm"+j+"/b:max"+j+"/s:tot"+j+"/i:integral"+j+"/i:time"+j+"/i:counter"+j+"/l"; */
 	/* std::cout << cnt << std::endl; */
 	/* std::cout << vars << std::endl; */
 
@@ -54,23 +66,27 @@ void treeFill(TTree *tree, TdmsGroup *group, int channelsID, int groupID)
 	/* uint8_t wcm[1000000]; */
 	/* tree->Branch("Wcm", wcm, "wcm[count]/b"); */
 
+	BranchStruct bs{};
+
+	tree->Branch(("group"+std::to_string(groupID)).c_str(), &bs, 1);
+
 	std::vector<uint8_t>WCM;
-	tree->Branch(("wcm"+std::to_string(channelsID)).c_str(), &WCM);
+/* 	tree->Branch(("group"+std::to_string(channelsID)+"/wcm").c_str(), &WCM); */
 
 	std::vector<uint16_t>MAX;
-	tree->Branch(("max"+std::to_string(channelsID)).c_str(), &MAX);
+/* 	tree->Branch(("group"+std::to_string(channelsID)+"/max").c_str(), &MAX); */
 
 	std::vector<uint32_t>TOT;
-	tree->Branch(("tot"+std::to_string(channelsID)).c_str(), &TOT);
+/* 	tree->Branch(("group"+std::to_string(channelsID)+"tot").c_str(), &TOT); */
 
 	std::vector<uint32_t>INTEGRAL;
-	tree->Branch(("integral"+std::to_string(channelsID)).c_str(), &INTEGRAL);
+/* 	tree->Branch(("group"+std::to_string(channelsID)+"integral").c_str(), &INTEGRAL); */
 
 	std::vector<uint32_t>TIME;
-	tree->Branch(("time"+std::to_string(channelsID)).c_str(), &TIME);
+/* 	tree->Branch(("group"+std::to_string(channelsID)+"time").c_str(), &TIME); */
 
 	std::vector<uint64_t>COUNTER;
-	tree->Branch(("counter"+std::to_string(channelsID)).c_str(), &COUNTER);
+/* 	tree->Branch(("group"+std::to_string(channelsID)+"counter").c_str(), &COUNTER); */
 
 	TdmsChannel *ch1 = group->getChannel(channelsID*6 + 0);
 	TdmsChannel *ch2 = group->getChannel(channelsID*6 + 1);
@@ -80,22 +96,32 @@ void treeFill(TTree *tree, TdmsGroup *group, int channelsID, int groupID)
 	TdmsChannel *ch6 = group->getChannel(channelsID*6 + 5);
 
 	WCM		 = std::vector<uint8_t>(ch1->getDataVector().begin(),ch1->getDataVector().end());
-	MAX 	 = std::vector<uint16_t>(ch2->getDataVector().begin(),ch2->getDataVector().end());
+	MAX		 = std::vector<uint16_t>(ch2->getDataVector().begin(),ch2->getDataVector().end());
 	TOT 	 = std::vector<uint32_t>(ch3->getDataVector().begin(),ch3->getDataVector().end());
 	INTEGRAL = std::vector<uint32_t>(ch4->getDataVector().begin(),ch4->getDataVector().end());
 	TIME     = std::vector<uint32_t>(ch5->getDataVector().begin(),ch5->getDataVector().end());
 	COUNTER  = std::vector<uint64_t>(ch6->getDataVector().begin(),ch6->getDataVector().end());
+	for (int i = 0; i < WCM.size(); ++i) {
+		bs.WCM		  = WCM[i];
+		bs.MAX		  = MAX[i];
+		bs.TOT	   	  = TOT[i];
+		bs.INTEGRAL   = INTEGRAL[i];
+		bs.TIME       = TIME[i];
+		bs.COUNTER    = COUNTER[i];
+		tree->Fill();
+	}
 
-	ch2->freeMemory();
+	/* tree->Fill(); */
+	/* tree->ResetBranchAddresses(); */
+
 	ch1->freeMemory();
+	ch2->freeMemory();
 	ch3->freeMemory();
 	ch4->freeMemory();
 	ch6->freeMemory();
 	ch5->freeMemory();
-
-	tree->Fill();
-	tree->ResetBranchAddresses();
 }
+
 
 int main(int argc, char *argv[])
 {
@@ -136,26 +162,50 @@ int main(int argc, char *argv[])
 
 	std::unique_ptr<TFile> outFile(TFile::Open("testFile.root", "RECREATE"));
 	TTree *tree = new TTree("T", "ACTUALLY THE TREE");
-	for (unsigned int i = 0; i < groupCount; i++){
+
+	/* for (unsigned int i = 0; i < groupCount; i++){ */
+	for (unsigned int i = 0; i < 5; i++){
 		TdmsGroup *group = parser.getGroup(i);
-		if (!group)
-			continue;
+		if (!group) continue;
+
+		printf("Group object property count %d\n",group->getObject()->getPropertyCount());
+
+		printf("Properties:\n");
+		for (auto item : group->getObject()->getProperties()) {
+			printf("	- %s, %s\n", item.first.c_str(), item.second.c_str());
+		}
 
 		unsigned int channelsCount = group->getGroupSize();
-		if (channelsCount)
-			printf("\nGroup %s (%d/%d) has %d channels:\n\n", group->getName().c_str(), i + 1, groupCount, channelsCount);
-		else
-			printf("\nGroup %s (%d/%d) has 0 channels.\n", group->getName().c_str(), i + 1, groupCount);
+		if (channelsCount == 0) continue;
 
-		
-		for (unsigned int j = 0; j < channelsCount/6; j++) {
-			std::cout << j << std::endl;
-			treeFill(tree, group, j, i);
+		printf("\nGroup %s (%d/%d) has %d channels:\n\n", group->getName().c_str(), i + 1, groupCount, channelsCount);
+
+		for (unsigned int j = 0; j < 6; j++) {
+			/* std::cout << j << std::endl; */
+			/* treeFill(tree, group, j, i); */
+			TdmsChannel *ch = group->getChannel(j);
+			if (!ch) continue;
+			printf("%d: Channel %s has %lld data, %lld values, %d properties\n", j + 1, 
+																				   ch->getName().c_str(), 
+																				   ch->getDataCount(), 
+																				   ch->getValuesCount(), 
+																				   ch->getPropertyCount());
+
+			/* for (int i = 0; i < std::min({(int)ch->getValuesCount(),100}); ++i) { */
+				/* std::cout << ch->getValue(unsigned int) << std::endl; */
+			double value = ch->getValue(10);
+			uint8_t _value = static_cast<uint8_t>(value);
+			/* } */
+			/* std::cout << value << ", " << _value << std::endl; */
+			printf("%lf, %u\n", value, _value);
+
+			/* printf("channel %d and %d properties:\n%s\n", j, ch->getPropertyCount(), ch->propertiesToString().c_str()); */
 		}
+
 	}
 
-	tree->Write();
-	outFile->Close();
+	/* tree->Write(); */
+	/* outFile->Close(); */
 
 	printf("\nSuccessfully parsed file '%s' (size: %lld bytes).\n", fileName.c_str(), parser.fileSize());
 	printf("Done!\n");
