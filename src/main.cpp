@@ -1,6 +1,8 @@
 #include "tdmsReader/TdmsParser.h"
 #include "tdmsReader/TdmsGroup.h"
 #include "tdmsReader/TdmsChannel.h"
+#include <TBranch.h>
+#include <cstdint>
 #include <math.h>
 #include <memory>
 #include <string.h>
@@ -8,6 +10,7 @@
 #include <TTree.h>
 #include <TFile.h>
 #include <string>
+#include <vector>
 
 void help()
 {
@@ -19,10 +22,90 @@ void help()
 	std::cout << "-v: verbose output" << std::endl;
 }
 
+struct BranchStruct
+{
+	std::vector<uint8_t>WCM;
+	std::vector<uint16_t>MAX;
+	std::vector<uint32_t>TOT;
+	std::vector<uint32_t>INTEGRAL;
+	std::vector<uint32_t>TIME;
+	std::vector<uint64_t>COUNTER;
+};
+
 void errorMessage()
 {
 	std::cout << "\nInput error: please provide a single valid *.tdms file name!" << std::endl;
 }
+
+void treeFill(TTree *tree, TdmsGroup *group, int channelsID, int groupID)
+{
+	TdmsChannel *ch = group->getChannel(channelsID*6);
+	if (!ch) return;
+
+	Int_t c = ch->getDataCount();
+	if (c== 0) return;
+
+	/* std::string	vars = "wcm["+count+"]/b:max["+count+"]/s:tot["+count+"]/i:integral["+count+"]/i:time["+count+"]/i:counter["+count+"]/l"; */
+	/* std::cout << cnt << std::endl; */
+
+	/* BranchStruct branchStruct; */
+	std::string j = std::to_string(channelsID);
+	/* std::string	vars = "wcm[count"+j+"]/b:max[count"+j+"]/s:tot[count"+j+"]/i:integral[count"+j+"]/i:time[count"+j+"]/i:counter[count"+j+"]/l"; */
+	/* std::cout << cnt << std::endl; */
+	/* std::cout << vars << std::endl; */
+
+	/* Int_t count; */
+	/* tree->Branch("count", &count, "count/I"); */
+	/* tree->Branch("Count", &count, "count/I"); */
+	/* tree->Branch(("channel_"+std::to_string(channelsID)).c_str(), &branchStruct, vars.c_str()); */
+
+	/* std::vector<uint8_t>WCM; */
+	/* uint8_t wcm[1000000]; */
+	/* tree->Branch("Wcm", wcm, "wcm[count]/b"); */
+
+	std::vector<uint8_t>WCM;
+	tree->Branch(("wcm"+std::to_string(channelsID)).c_str(), &WCM);
+
+	std::vector<uint16_t>MAX;
+	tree->Branch(("max"+std::to_string(channelsID)).c_str(), &MAX);
+
+	std::vector<uint32_t>TOT;
+	tree->Branch(("tot"+std::to_string(channelsID)).c_str(), &TOT);
+
+	std::vector<uint32_t>INTEGRAL;
+	tree->Branch(("integral"+std::to_string(channelsID)).c_str(), &INTEGRAL);
+
+	std::vector<uint32_t>TIME;
+	tree->Branch(("time"+std::to_string(channelsID)).c_str(), &TIME);
+
+	std::vector<uint64_t>COUNTER;
+	tree->Branch(("counter"+std::to_string(channelsID)).c_str(), &COUNTER);
+
+	TdmsChannel *ch1 = group->getChannel(channelsID*6 + 0);
+	TdmsChannel *ch2 = group->getChannel(channelsID*6 + 1);
+	TdmsChannel *ch3 = group->getChannel(channelsID*6 + 2);
+	TdmsChannel *ch4 = group->getChannel(channelsID*6 + 3);
+	TdmsChannel *ch5 = group->getChannel(channelsID*6 + 4);
+	TdmsChannel *ch6 = group->getChannel(channelsID*6 + 5);
+
+	WCM		 = std::vector<uint8_t>(ch1->getDataVector().begin(),ch1->getDataVector().end());
+	MAX 	 = std::vector<uint16_t>(ch2->getDataVector().begin(),ch2->getDataVector().end());
+	TOT 	 = std::vector<uint32_t>(ch3->getDataVector().begin(),ch3->getDataVector().end());
+	INTEGRAL = std::vector<uint32_t>(ch4->getDataVector().begin(),ch4->getDataVector().end());
+	TIME     = std::vector<uint32_t>(ch5->getDataVector().begin(),ch5->getDataVector().end());
+	COUNTER  = std::vector<uint64_t>(ch6->getDataVector().begin(),ch6->getDataVector().end());
+
+	ch2->freeMemory();
+	ch1->freeMemory();
+	ch3->freeMemory();
+	ch4->freeMemory();
+	ch6->freeMemory();
+	ch5->freeMemory();
+
+	tree->Fill();
+	tree->ResetBranchAddresses();
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -60,133 +143,29 @@ int main(int argc, char *argv[])
 
 	unsigned int groupCount = parser.getGroupCount();
 	printf("\nNumber of groups: %d\n", groupCount);
-	int i = 20;
-	/* for (unsigned int i = 0; i < groupCount; i++){ */
-	TdmsGroup *group = parser.getGroup(i);
-	/* if (!group) */
-	/* 	continue; */
-
-	unsigned int channelsCount = group->getGroupSize();
-	if (channelsCount)
-		printf("\nGroup %s (%d/%d) has %d channels:\n\n", group->getName().c_str(), i + 1, groupCount, channelsCount);
-	else
-		printf("\nGroup %s (%d/%d) has 0 channels.\n", group->getName().c_str(), i + 1, groupCount);
 
 	std::unique_ptr<TFile> outFile(TFile::Open("testFile.root", "RECREATE"));
-	auto tree = std::make_unique<TTree>("TRREEEE", "ACTUALLY THE TREE");
+	TTree *tree = new TTree("T", "ACTUALLY THE TREE");
+	for (unsigned int i = 0; i < groupCount; i++){
+		TdmsGroup *group = parser.getGroup(i);
+		if (!group)
+			continue;
 
-	/* Branch branch; */
-	/* tree->Branch("channel", &branchStruct, vars.c_str()); */
+		unsigned int channelsCount = group->getGroupSize();
+		if (channelsCount)
+			printf("\nGroup %s (%d/%d) has %d channels:\n\n", group->getName().c_str(), i + 1, groupCount, channelsCount);
+		else
+			printf("\nGroup %s (%d/%d) has 0 channels.\n", group->getName().c_str(), i + 1, groupCount);
 
-	std::vector<uint8_t>WCM;
-	tree->Branch("wcm", &WCM);
-
-	std::vector<uint16_t>MAX;
-	tree->Branch("max", &MAX);
-
-	std::vector<uint32_t>TOT;
-	tree->Branch("tot", &TOT);
-
-	std::vector<uint32_t>INTEGRAL;
-	tree->Branch("intergral", &INTEGRAL);
-
-	std::vector<uint32_t>TIME;
-	tree->Branch("time", &TIME);
-
-	std::vector<uint64_t>COUNTER;
-	tree->Branch("counter", &COUNTER);
-
-	for (unsigned int j = 0; j < 6; j++) {
-		TdmsChannel *ch = group->getChannel(j);
-		if (ch) {
-			unsigned long long dataCount = ch->getDataCount();
-			if (dataCount == 0) {
-				continue;
-			}
-
-			printf("%d) Channel %s has %lld values\n", j + 1, ch->getName().c_str(), dataCount);
-
-			unsigned int type = ch->getDataType();
-			std::cout << "type: " << type << std::endl;
-
-			if (dataCount){
-				std::vector<double> data = ch->getDataVector();
-
-				if (j % 6 == 0) { // WCM
-					auto count = std::to_string(dataCount);
-					/* std::string	vars = "wcm["+count+"]/b:max["+count+"]/s:tot["+count+"]/i:integral["+count+"]/i:time["+count+"]/i:counter["+count+"]/l"; */
-					/* tree->Branch(("channel_"+std::to_string(j/6)).c_str(), &branchStruct, vars.c_str()); */
-					/* tree->Branch(("channel_"+std::to_string(j/6)).c_str(), &branch); */
-
-					std::cout << "wcm" << std::endl;
-					WCM = std::vector<uint8_t>(data.begin(),data.end());
-				}
-				else if (j % 6 == 1) { // MAXIMUM
-					std::cout << "MAX" << std::endl;
-					MAX = std::vector<uint16_t>(data.begin(),data.end());
-				}
-				else if (j % 6 == 2) { // ToT
-					std::cout << "Tot" << std::endl;
-					TOT = std::vector<uint32_t>(data.begin(),data.end());
-				}
-				else if (j % 6 == 3) { // Integral
-					std::cout << "Integral" << std::endl;
-					INTEGRAL = std::vector<uint32_t>(data.begin(),data.end());
-				}
-				else if (j % 6 == 4) { // Time
-					std::cout << "Time" << std::endl;
-					TIME = std::vector<uint32_t>(data.begin(),data.end());
-				}
-				else if (j % 6 == 5) { //Counter
-					std::cout << "Counter" << std::endl;
-					COUNTER = std::vector<uint64_t>(data.begin(),data.end());
-
-					tree->Fill();
-				}
-
-				std::cout << data.size() << std::endl;
-				if ((type == TdmsChannel::tdsTypeComplexSingleFloat) || (type == TdmsChannel::tdsTypeComplexDoubleFloat)){
-					std::vector<double> imData = ch->getImaginaryDataVector();
-					if (!imData.empty()){
-						double iVal1 = imData.front(), iVal2 = imData.back();
-						std::string fmt = "\t%g";
-						fmt.append((iVal1 < 0) ? "-i*%g ... %g" : "+i*%g ... %g");
-						fmt.append((iVal2 < 0) ? "-i*%g\n" : "+i*%g\n");
-						printf(fmt.c_str(), data.front(), fabs(iVal1), data.back(), fabs(iVal2));
-					}
-				} else {
-					if (!data.empty())
-						printf("\t[begin...end]: %g ... %g\n", data.front(), data.back());
-
-					printf("\t[min...max]: %g ... %g\n", ch->getMinDataValue(), ch->getMaxDataValue());
-
-					if (dataCount)
-						printf("\taverage data value: %g\n", ch->getDataSum()/dataCount);
-				}
-			}
-
-			if (showProperties){
-				auto propertyCount = ch->getPropertyCount();
-				printf("and %d properties:\n%s\n", propertyCount, ch->propertiesToString().c_str());
-
-				if (propertyCount) {
-					auto m = ch->getProperties();
-
-					std::vector<string> key, value;
-					for(std::map<string,string>::iterator it = m.begin(); it != m.end(); ++it) {
-					  key.push_back(it->first);
-					  value.push_back(it->second);
-					  std::cout << "Key: " << it->first << std::endl;
-					  std::cout << "Value: " << it->second << std::endl;
-					}
-				}
-			}
-			if (storeValues)
-				ch->freeMemory();
+		
+		for (unsigned int j = 0; j < channelsCount/6; j++) {
+			std::cout << j << std::endl;
+			treeFill(tree, group, j, i);
 		}
 	}
-	/* tree->Fill(); */
+
 	tree->Write();
+	outFile->Close();
 
 	printf("\nSuccessfully parsed file '%s' (size: %lld bytes).\n", fileName.c_str(), parser.fileSize());
 	printf("Done!\n");

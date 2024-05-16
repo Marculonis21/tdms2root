@@ -13,6 +13,10 @@ tdmsReader/TdmsGroup.h
 /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/tdmsReader/TdmsGroup.h
 tdmsReader/TdmsChannel.h
 /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/tdmsReader/TdmsChannel.h
+TBranch.h
+-
+cstdint
+-
 math.h
 -
 memory
@@ -26,6 +30,8 @@ TTree.h
 TFile.h
 -
 string
+-
+vector
 -
 
 /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/tdmsReader/TdmsChannel.h
