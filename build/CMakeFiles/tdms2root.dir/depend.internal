@@ -28,6 +28,7 @@ CMakeFiles/tdms2root.dir/src/main.cpp.o
  /home/marculonis/Downloads/root/include/ROOT/libcpp_string_view.h
  /home/marculonis/Downloads/root/include/ROOT/span.hxx
  /home/marculonis/Downloads/root/include/RVersion.h
+ /home/marculonis/Downloads/root/include/Riostream.h
  /home/marculonis/Downloads/root/include/Rtypes.h
  /home/marculonis/Downloads/root/include/RtypesCore.h
  /home/marculonis/Downloads/root/include/TArray.h
@@ -55,7 +56,10 @@ CMakeFiles/tdms2root.dir/src/main.cpp.o
  /home/marculonis/Downloads/root/include/TMathBase.h
  /home/marculonis/Downloads/root/include/TNamed.h
  /home/marculonis/Downloads/root/include/TObjArray.h
+ /home/marculonis/Downloads/root/include/TObjString.h
  /home/marculonis/Downloads/root/include/TObject.h
+ /home/marculonis/Downloads/root/include/TParameter.h
+ /home/marculonis/Downloads/root/include/TROOT.h
  /home/marculonis/Downloads/root/include/TSchemaHelper.h
  /home/marculonis/Downloads/root/include/TSeqCollection.h
  /home/marculonis/Downloads/root/include/TStorage.h

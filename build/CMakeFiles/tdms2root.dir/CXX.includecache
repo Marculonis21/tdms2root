@@ -15,6 +15,16 @@ tdmsReader/TdmsChannel.h
 /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/tdmsReader/TdmsChannel.h
 TBranch.h
 -
+TParameter.h
+-
+TString.h
+-
+TObjString.h
+-
+TList.h
+-
+TDatime.h
+-
 cstdint
 -
 cstdio
@@ -243,6 +253,14 @@ type_traits
 /home/marculonis/Downloads/root/include/RVersion.h
 ROOT/RVersion.hxx
 /home/marculonis/Downloads/root/include/ROOT/RVersion.hxx
+
+/home/marculonis/Downloads/root/include/Riostream.h
+fstream
+-
+iostream
+-
+iomanip
+-
 
 /home/marculonis/Downloads/root/include/Rtypes.h
 RtypesCore.h
@@ -504,6 +522,12 @@ TSeqCollection.h
 iterator
 -
 
+/home/marculonis/Downloads/root/include/TObjString.h
+TObject.h
+/home/marculonis/Downloads/root/include/TObject.h
+TString.h
+/home/marculonis/Downloads/root/include/TString.h
+
 /home/marculonis/Downloads/root/include/TObject.h
 Rtypes.h
 /home/marculonis/Downloads/root/include/Rtypes.h
@@ -516,6 +540,30 @@ stdarg.h
 string
 -
 iosfwd
+-
+
+/home/marculonis/Downloads/root/include/TParameter.h
+Riostream.h
+/home/marculonis/Downloads/root/include/Riostream.h
+TObject.h
+/home/marculonis/Downloads/root/include/TObject.h
+TCollection.h
+/home/marculonis/Downloads/root/include/TCollection.h
+TString.h
+/home/marculonis/Downloads/root/include/TString.h
+TROOT.h
+/home/marculonis/Downloads/root/include/TROOT.h
+
+/home/marculonis/Downloads/root/include/TROOT.h
+TDirectory.h
+/home/marculonis/Downloads/root/include/TDirectory.h
+atomic
+-
+string
+-
+vector
+-
+utility
 -
 
 /home/marculonis/Downloads/root/include/TSchemaHelper.h

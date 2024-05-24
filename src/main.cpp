@@ -2,6 +2,11 @@
 #include "tdmsReader/TdmsGroup.h"
 #include "tdmsReader/TdmsChannel.h"
 #include <TBranch.h>
+#include <TParameter.h>
+#include <TString.h>
+#include <TObjString.h>
+#include <TList.h>
+#include <TDatime.h>
 #include <cstdint>
 #include <cstdio>
 #include <math.h>
@@ -164,40 +169,64 @@ int main(int argc, char *argv[])
 	TTree *tree = new TTree("T", "ACTUALLY THE TREE");
 
 	/* for (unsigned int i = 0; i < groupCount; i++){ */
+
 	for (unsigned int i = 0; i < 5; i++){
+		printf("START group %d\n", i);
+
 		TdmsGroup *group = parser.getGroup(i);
 		if (!group) continue;
 
-		printf("Group object property count %d\n",group->getObject()->getPropertyCount());
+		auto tName = "T_Pulse" + std::to_string(i);
+		auto tree = std::make_unique<TTree>(tName.c_str(), "");
 
+		printf("Group object property count %d\n",group->getObject()->getPropertyCount());
 		printf("Properties:\n");
+		
+		int _item = 0;
 		for (auto item : group->getObject()->getProperties()) {
-			printf("	- %s, %s\n", item.first.c_str(), item.second.c_str());
+			printf(" - %s, %s\n", item.first.c_str(), item.second.c_str());
+
+			if (_item == 3 || _item == 13 || _item == 22) {
+				auto p = new TObjString((item.first + ": " + item.second).c_str());
+				tree->GetUserInfo()->Add(p);
+			}
+			else if (_item == 12) {
+				auto p = new TParameter<bool>(item.first.c_str(), item.second == "True");
+				tree->GetUserInfo()->Add(p);
+			}
+			else {
+				auto p = new TParameter<float>(item.first.c_str(), std::stof(item.second));
+				tree->GetUserInfo()->Add(p);
+			}
+
+			_item++;
 		}
+
 
 		unsigned int channelsCount = group->getGroupSize();
 		if (channelsCount == 0) continue;
 
 		printf("\nGroup %s (%d/%d) has %d channels:\n\n", group->getName().c_str(), i + 1, groupCount, channelsCount);
 
-		for (unsigned int j = 0; j < 6; j++) {
+		for (unsigned int j = 0; j < channelsCount; j++) {
 			/* std::cout << j << std::endl; */
 			/* treeFill(tree, group, j, i); */
 			TdmsChannel *ch = group->getChannel(j);
 			if (!ch) continue;
+			if (ch->getDataCount() == 0) continue; 
 			printf("%d: Channel %s has %lld data, %lld values, %d properties\n", j + 1, 
-																				   ch->getName().c_str(), 
-																				   ch->getDataCount(), 
-																				   ch->getValuesCount(), 
-																				   ch->getPropertyCount());
+																				 ch->getName().c_str(), 
+																				 ch->getDataCount(), 
+																				 ch->getValuesCount(), 
+																				 ch->getPropertyCount());
 
 			/* for (int i = 0; i < std::min({(int)ch->getValuesCount(),100}); ++i) { */
 				/* std::cout << ch->getValue(unsigned int) << std::endl; */
-			double value = ch->getValue(10);
-			uint8_t _value = static_cast<uint8_t>(value);
+			/* double value = ch->getValue(10); */
+			/* uint8_t _value = static_cast<uint8_t>(value); */
 			/* } */
 			/* std::cout << value << ", " << _value << std::endl; */
-			printf("%lf, %u\n", value, _value);
+			/* printf("%lf, %u\n", value, _value); */
 
 			/* printf("channel %d and %d properties:\n%s\n", j, ch->getPropertyCount(), ch->propertiesToString().c_str()); */
 		}

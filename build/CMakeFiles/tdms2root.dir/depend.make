@@ -27,6 +27,7 @@ CMakeFiles/tdms2root.dir/src/main.cpp.o: /home/marculonis/Downloads/root/include
 CMakeFiles/tdms2root.dir/src/main.cpp.o: /home/marculonis/Downloads/root/include/ROOT/libcpp_string_view.h
 CMakeFiles/tdms2root.dir/src/main.cpp.o: /home/marculonis/Downloads/root/include/ROOT/span.hxx
 CMakeFiles/tdms2root.dir/src/main.cpp.o: /home/marculonis/Downloads/root/include/RVersion.h
+CMakeFiles/tdms2root.dir/src/main.cpp.o: /home/marculonis/Downloads/root/include/Riostream.h
 CMakeFiles/tdms2root.dir/src/main.cpp.o: /home/marculonis/Downloads/root/include/Rtypes.h
 CMakeFiles/tdms2root.dir/src/main.cpp.o: /home/marculonis/Downloads/root/include/RtypesCore.h
 CMakeFiles/tdms2root.dir/src/main.cpp.o: /home/marculonis/Downloads/root/include/TArray.h
@@ -54,7 +55,10 @@ CMakeFiles/tdms2root.dir/src/main.cpp.o: /home/marculonis/Downloads/root/include
 CMakeFiles/tdms2root.dir/src/main.cpp.o: /home/marculonis/Downloads/root/include/TMathBase.h
 CMakeFiles/tdms2root.dir/src/main.cpp.o: /home/marculonis/Downloads/root/include/TNamed.h
 CMakeFiles/tdms2root.dir/src/main.cpp.o: /home/marculonis/Downloads/root/include/TObjArray.h
+CMakeFiles/tdms2root.dir/src/main.cpp.o: /home/marculonis/Downloads/root/include/TObjString.h
 CMakeFiles/tdms2root.dir/src/main.cpp.o: /home/marculonis/Downloads/root/include/TObject.h
+CMakeFiles/tdms2root.dir/src/main.cpp.o: /home/marculonis/Downloads/root/include/TParameter.h
+CMakeFiles/tdms2root.dir/src/main.cpp.o: /home/marculonis/Downloads/root/include/TROOT.h
 CMakeFiles/tdms2root.dir/src/main.cpp.o: /home/marculonis/Downloads/root/include/TSchemaHelper.h
 CMakeFiles/tdms2root.dir/src/main.cpp.o: /home/marculonis/Downloads/root/include/TSeqCollection.h
 CMakeFiles/tdms2root.dir/src/main.cpp.o: /home/marculonis/Downloads/root/include/TStorage.h
