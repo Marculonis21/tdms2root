@@ -1,6 +1,11 @@
 [
 {
   "directory": "/home/marculonis/Desktop/mySocial/CERN/tdms2root/build",
+  "command": "/usr/bin/c++  -DVECCORE_ENABLE_VC -isystem /home/marculonis/Downloads/root/include    -std=gnu++17 -o CMakeFiles/tdms2root.dir/src/ParserWrapper.cpp.o -c /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/ParserWrapper.cpp",
+  "file": "/home/marculonis/Desktop/mySocial/CERN/tdms2root/src/ParserWrapper.cpp"
+},
+{
+  "directory": "/home/marculonis/Desktop/mySocial/CERN/tdms2root/build",
   "command": "/usr/bin/c++  -DVECCORE_ENABLE_VC -isystem /home/marculonis/Downloads/root/include    -std=gnu++17 -o CMakeFiles/tdms2root.dir/src/main.cpp.o -c /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/main.cpp",
   "file": "/home/marculonis/Desktop/mySocial/CERN/tdms2root/src/main.cpp"
 },

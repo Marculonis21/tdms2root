@@ -123,6 +123,33 @@ tdms2root/fast:
 	$(MAKE) -f CMakeFiles/tdms2root.dir/build.make CMakeFiles/tdms2root.dir/build
 .PHONY : tdms2root/fast
 
+src/ParserWrapper.o: src/ParserWrapper.cpp.o
+
+.PHONY : src/ParserWrapper.o
+
+# target to build an object file
+src/ParserWrapper.cpp.o:
+	$(MAKE) -f CMakeFiles/tdms2root.dir/build.make CMakeFiles/tdms2root.dir/src/ParserWrapper.cpp.o
+.PHONY : src/ParserWrapper.cpp.o
+
+src/ParserWrapper.i: src/ParserWrapper.cpp.i
+
+.PHONY : src/ParserWrapper.i
+
+# target to preprocess a source file
+src/ParserWrapper.cpp.i:
+	$(MAKE) -f CMakeFiles/tdms2root.dir/build.make CMakeFiles/tdms2root.dir/src/ParserWrapper.cpp.i
+.PHONY : src/ParserWrapper.cpp.i
+
+src/ParserWrapper.s: src/ParserWrapper.cpp.s
+
+.PHONY : src/ParserWrapper.s
+
+# target to generate assembly for a file
+src/ParserWrapper.cpp.s:
+	$(MAKE) -f CMakeFiles/tdms2root.dir/build.make CMakeFiles/tdms2root.dir/src/ParserWrapper.cpp.s
+.PHONY : src/ParserWrapper.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -348,6 +375,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... tdms2root"
+	@echo "... src/ParserWrapper.o"
+	@echo "... src/ParserWrapper.i"
+	@echo "... src/ParserWrapper.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

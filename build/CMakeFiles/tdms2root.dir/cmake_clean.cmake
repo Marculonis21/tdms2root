@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/tdms2root.dir/src/ParserWrapper.cpp.o"
   "CMakeFiles/tdms2root.dir/src/main.cpp.o"
   "CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsChannel.cpp.o"
   "CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsGroup.cpp.o"

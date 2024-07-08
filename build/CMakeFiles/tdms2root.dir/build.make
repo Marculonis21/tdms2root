@@ -57,9 +57,22 @@ include CMakeFiles/tdms2root.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/tdms2root.dir/flags.make
 
+CMakeFiles/tdms2root.dir/src/ParserWrapper.cpp.o: CMakeFiles/tdms2root.dir/flags.make
+CMakeFiles/tdms2root.dir/src/ParserWrapper.cpp.o: ../src/ParserWrapper.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/tdms2root.dir/src/ParserWrapper.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tdms2root.dir/src/ParserWrapper.cpp.o -c /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/ParserWrapper.cpp
+
+CMakeFiles/tdms2root.dir/src/ParserWrapper.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/tdms2root.dir/src/ParserWrapper.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/ParserWrapper.cpp > CMakeFiles/tdms2root.dir/src/ParserWrapper.cpp.i
+
+CMakeFiles/tdms2root.dir/src/ParserWrapper.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/tdms2root.dir/src/ParserWrapper.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/ParserWrapper.cpp -o CMakeFiles/tdms2root.dir/src/ParserWrapper.cpp.s
+
 CMakeFiles/tdms2root.dir/src/main.cpp.o: CMakeFiles/tdms2root.dir/flags.make
 CMakeFiles/tdms2root.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/tdms2root.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/tdms2root.dir/src/main.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tdms2root.dir/src/main.cpp.o -c /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/main.cpp
 
 CMakeFiles/tdms2root.dir/src/main.cpp.i: cmake_force
@@ -72,7 +85,7 @@ CMakeFiles/tdms2root.dir/src/main.cpp.s: cmake_force
 
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsChannel.cpp.o: CMakeFiles/tdms2root.dir/flags.make
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsChannel.cpp.o: ../src/tdmsReader/TdmsChannel.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsChannel.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsChannel.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsChannel.cpp.o -c /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/tdmsReader/TdmsChannel.cpp
 
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsChannel.cpp.i: cmake_force
@@ -85,7 +98,7 @@ CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsChannel.cpp.s: cmake_force
 
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsGroup.cpp.o: CMakeFiles/tdms2root.dir/flags.make
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsGroup.cpp.o: ../src/tdmsReader/TdmsGroup.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsGroup.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsGroup.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsGroup.cpp.o -c /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/tdmsReader/TdmsGroup.cpp
 
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsGroup.cpp.i: cmake_force
@@ -98,7 +111,7 @@ CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsGroup.cpp.s: cmake_force
 
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsLeadIn.cpp.o: CMakeFiles/tdms2root.dir/flags.make
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsLeadIn.cpp.o: ../src/tdmsReader/TdmsLeadIn.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsLeadIn.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsLeadIn.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsLeadIn.cpp.o -c /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/tdmsReader/TdmsLeadIn.cpp
 
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsLeadIn.cpp.i: cmake_force
@@ -111,7 +124,7 @@ CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsLeadIn.cpp.s: cmake_force
 
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsMetaData.cpp.o: CMakeFiles/tdms2root.dir/flags.make
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsMetaData.cpp.o: ../src/tdmsReader/TdmsMetaData.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsMetaData.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsMetaData.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsMetaData.cpp.o -c /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/tdmsReader/TdmsMetaData.cpp
 
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsMetaData.cpp.i: cmake_force
@@ -124,7 +137,7 @@ CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsMetaData.cpp.s: cmake_force
 
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsObject.cpp.o: CMakeFiles/tdms2root.dir/flags.make
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsObject.cpp.o: ../src/tdmsReader/TdmsObject.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsObject.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsObject.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsObject.cpp.o -c /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/tdmsReader/TdmsObject.cpp
 
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsObject.cpp.i: cmake_force
@@ -137,7 +150,7 @@ CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsObject.cpp.s: cmake_force
 
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsParser.cpp.o: CMakeFiles/tdms2root.dir/flags.make
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsParser.cpp.o: ../src/tdmsReader/TdmsParser.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsParser.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsParser.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsParser.cpp.o -c /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/tdmsReader/TdmsParser.cpp
 
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsParser.cpp.i: cmake_force
@@ -150,7 +163,7 @@ CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsParser.cpp.s: cmake_force
 
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsSegment.cpp.o: CMakeFiles/tdms2root.dir/flags.make
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsSegment.cpp.o: ../src/tdmsReader/TdmsSegment.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsSegment.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsSegment.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsSegment.cpp.o -c /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/tdmsReader/TdmsSegment.cpp
 
 CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsSegment.cpp.i: cmake_force
@@ -163,6 +176,7 @@ CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsSegment.cpp.s: cmake_force
 
 # Object files for target tdms2root
 tdms2root_OBJECTS = \
+"CMakeFiles/tdms2root.dir/src/ParserWrapper.cpp.o" \
 "CMakeFiles/tdms2root.dir/src/main.cpp.o" \
 "CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsChannel.cpp.o" \
 "CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsGroup.cpp.o" \
@@ -175,6 +189,7 @@ tdms2root_OBJECTS = \
 # External object files for target tdms2root
 tdms2root_EXTERNAL_OBJECTS =
 
+tdms2root: CMakeFiles/tdms2root.dir/src/ParserWrapper.cpp.o
 tdms2root: CMakeFiles/tdms2root.dir/src/main.cpp.o
 tdms2root: CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsChannel.cpp.o
 tdms2root: CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsGroup.cpp.o
@@ -194,7 +209,7 @@ tdms2root: /home/marculonis/Downloads/root/lib/libRIO.so.6.30.04
 tdms2root: /home/marculonis/Downloads/root/lib/libThread.so.6.30.04
 tdms2root: /home/marculonis/Downloads/root/lib/libCore.so.6.30.04
 tdms2root: CMakeFiles/tdms2root.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable tdms2root"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable tdms2root"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/tdms2root.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

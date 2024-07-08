@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/marculonis/Desktop/mySocial/CERN/tdms2root/src/ParserWrapper.cpp" "/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles/tdms2root.dir/src/ParserWrapper.cpp.o"
   "/home/marculonis/Desktop/mySocial/CERN/tdms2root/src/main.cpp" "/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles/tdms2root.dir/src/main.cpp.o"
   "/home/marculonis/Desktop/mySocial/CERN/tdms2root/src/tdmsReader/TdmsChannel.cpp" "/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsChannel.cpp.o"
   "/home/marculonis/Desktop/mySocial/CERN/tdms2root/src/tdmsReader/TdmsGroup.cpp" "/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles/tdms2root.dir/src/tdmsReader/TdmsGroup.cpp.o"
