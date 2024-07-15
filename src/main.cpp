@@ -22,27 +22,31 @@
 #include "ParserWrapper.hpp"
 
 int main(int argc, char *argv[]) {
-    if (argc < 2) {
-        printf("Use: tdmsreader your_file_name.tdms\n");
+    if (argc < 3) {
+        printf("Use: tdms2root your_file_name.tdms output_directory/\n");
         return 1;
     }
 
-    std::unique_ptr<TFile> outFile(TFile::Open("testFile.root", "RECREATE"));
-
-    std::string fileName = argv[1];
+    std::string filePath = argv[1];
+    std::string outputDirectory = argv[2];
 
     // Parse from the fileName
-    ParserWrapper parser(fileName);
+    ParserWrapper parser(filePath);
 
     if (!parser.IsValid()) {
         return 2;
     }
 
+    std::unique_ptr<TFile> outFile(TFile::Open((outputDirectory + "/" + parser.fileName +".root").c_str(), "RECREATE"));
+    /* std::unique_ptr<TFile> outFile(TFile::Open("testFile.root", "RECREATE")); */
+
     size_t groupCount = parser.GroupCount();
     printf("\nNumber of groups: %zu\n", groupCount);
 
     for (size_t gi = 0; gi < groupCount; gi++) {
-        if (parser.SkipGroup(gi)) { continue; }
+        if (parser.ShouldSkipGroup(gi)) { 
+            continue; 
+        }
         printf("Processing group %zu\n", gi);
 
         // TTree for each group! 
@@ -57,6 +61,7 @@ int main(int argc, char *argv[]) {
 			parser.ParseBranch(ch, tree.get(), dataID, channelID);
         }
 
+        // when data processed, get the group metadata (properties)
 		parser.GetGroupProperties(tree.get(), gi, false);
 
         tree->Fill();
@@ -65,8 +70,8 @@ int main(int argc, char *argv[]) {
     outFile->Close();
 
     printf("\nSuccessfully parsed file '%s' (size: %lld bytes).\n",
-           fileName.c_str(), parser.fileSize);
-    printf("Done '%s'!\n", fileName.c_str());
+           filePath.c_str(), parser.fileSize);
+    printf("Done '%s'!\n", filePath.c_str());
 
     return 0;
 }

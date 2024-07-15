@@ -1,22 +1,22 @@
 #include "ParserWrapper.hpp"
 
-ParserWrapper::ParserWrapper(std::string fileName) {
-    TdmsParser *parser = new TdmsParser(fileName, true);
+ParserWrapper::ParserWrapper(std::string filePath) {
+    TdmsParser *parser = new TdmsParser(filePath, true);
     if (parser->fileOpeningError()) {
-        printf("File Opening Error - there was a problem opening selected file "
-               "(%s)\n",
-               fileName.c_str());
+        printf("File Opening Error - there was a problem opening selected file (%s)\n",
+               filePath.c_str());
         this->valid = false;
         return;
     }
 
-    printf("Parsing TDMS File: %s \n", fileName.c_str());
+    printf("Parsing TDMS File: %s \n", filePath.c_str());
     bool verbose = false;
     parser->read(verbose);
 
     this->ptr = std::unique_ptr<TdmsParser>(parser);
     this->fileSize = ptr->fileSize();
     this->valid = true;
+    this->fileName = GetFileName(filePath);
 }
 
 bool ParserWrapper::IsValid() const { return this->valid; }
@@ -27,7 +27,7 @@ size_t ParserWrapper::ChannelCount(size_t groupIndex) const {
     return ptr->getGroup(groupIndex)->getGroupSize();
 }
 
-bool ParserWrapper::SkipGroup(size_t groupIndex) const {
+bool ParserWrapper::ShouldSkipGroup(size_t groupIndex) const {
     TdmsGroup *group = ptr->getGroup(groupIndex);
     return !group || group->getGroupSize() == 0;
 }
@@ -115,4 +115,9 @@ void ParserWrapper::FinalizeChannel(TTree *tree, size_t &dataID, size_t &channel
     tree->Branch(counter_n.c_str(),  &(bs[channelID].COUNTER));
 
     channelID++;
+}
+
+std::string ParserWrapper::GetFileName(const std::string filePath) {
+    // extract fileName from the filePath - remove directories and .tdms at the end
+    return filePath.substr(0, filePath.length()-5).substr(filePath.find_last_of("/") + 1);
 }
