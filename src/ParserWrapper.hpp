@@ -40,6 +40,6 @@ class ParserWrapper {
     BranchStruct bs[8];
     bool valid=true;
 
-    void FinalizeChannel(TTree *tree, size_t &dataID, size_t &channelID);
+    void FinalizeChannel(TTree *tree, size_t &channelID);
     std::string GetFileName(const std::string filePath);
 };

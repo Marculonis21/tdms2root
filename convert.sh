@@ -25,4 +25,4 @@ echo "ALL GOOD SO FAR"
 
 files=$(ls -d $FROMDIR/* | grep .tdms)
 
-ls -d $FROMDIR/* | grep .tdms | xargs --replace=@ build/tdms2root @ $TODIR
+ls -d $FROMDIR/* | grep .tdms | xargs -P 0 --replace=@ build/tdms2root @ $TODIR

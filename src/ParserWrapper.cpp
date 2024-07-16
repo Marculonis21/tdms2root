@@ -92,14 +92,14 @@ void ParserWrapper::ParseBranch(TdmsChannel *ch, TTree *tree, size_t &dataID, si
             ch->getDataVector().begin(), ch->getDataVector().end());
 
         // when all branch data is prepared -> put all into the tree
-        FinalizeChannel(tree, dataID, channelID);
+        FinalizeChannel(tree, channelID);
         dataID = -1;
     }
 
     dataID++;
 }
 
-void ParserWrapper::FinalizeChannel(TTree *tree, size_t &dataID, size_t &channelID) {
+void ParserWrapper::FinalizeChannel(TTree *tree, size_t &channelID) {
     auto wcm_n      = "wcm"      + std::to_string(channelID);
     auto max_n      = "max"      + std::to_string(channelID);
     auto tot_n      = "tot"      + std::to_string(channelID);

@@ -47,7 +47,9 @@ int main(int argc, char *argv[]) {
         if (parser.ShouldSkipGroup(gi)) { 
             continue; 
         }
-        printf("Processing group %zu\n", gi);
+        if (gi % 50 == 0) {
+            printf("Processing group %zu/%zu\n", gi, groupCount);
+        }
 
         // TTree for each group! 
         auto tree = std::make_unique<TTree>("T_Pulse", "");

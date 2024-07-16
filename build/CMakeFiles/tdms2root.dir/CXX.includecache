@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+/home/marculonis/Desktop/mySocial/CERN/tdms2root/src/ParserWrapper.cpp
+ParserWrapper.hpp
+/home/marculonis/Desktop/mySocial/CERN/tdms2root/src/ParserWrapper.hpp
+
 /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/ParserWrapper.hpp
 tdmsReader/TdmsChannel.h
 /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/tdmsReader/TdmsChannel.h
