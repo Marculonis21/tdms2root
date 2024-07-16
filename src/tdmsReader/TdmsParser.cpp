@@ -95,10 +95,10 @@ void TdmsParser::read(const bool verbose)
 {
 	init();
 
-	if (verbose){
-		printf("Parsing file: '%s'\n", d_file_name.c_str());
-		printf("File size is: %lld bytes (0x%llX).\n", (unsigned long long)d_file_size, (unsigned long long)d_file_size);
-	}
+	/* if (verbose){ */
+	/* 	printf("Parsing file: '%s'\n", d_file_name.c_str()); */
+	/* 	printf("File size is: %lld bytes (0x%llX).\n", (unsigned long long)d_file_size, (unsigned long long)d_file_size); */
+	/* } */
 
 	int seg = 0;
 	unsigned long long nextSegmentOffset = 0;
@@ -108,28 +108,28 @@ void TdmsParser::read(const bool verbose)
 		nextSegmentOffset = readSegment(verbose, &atEnd);
 		seg++;
 
-		if (verbose){
-			printf("\nPOS after segment %d: 0x%llX\n", seg, (unsigned long long)file.tellg());
-			if (atEnd)
-				printf("Should skip to the end of file...File format error?!\n");
-		}
+		/* if (verbose){ */
+		/* 	printf("\nPOS after segment %d: 0x%llX\n", seg, (unsigned long long)file.tellg()); */
+		/* 	if (atEnd) */
+		/* 		printf("Should skip to the end of file...File format error?!\n"); */
+		/* } */
 
 		if (nextSegmentOffset >= (unsigned long long)d_file_size){
-			if (verbose)
-				printf("\tEnd of file is reached after segment %d!\n", seg);
+			/* if (verbose) */
+			/* 	printf("\tEnd of file is reached after segment %d!\n", seg); */
 			break;
 		}
 	}
 
 	if (!atEnd && ((unsigned long long)file.tellg() < d_file_size)){
-		if (verbose)
-			printf("\nFile contains raw data at the end!\n");
+		/* if (verbose) */
+		/* 	printf("\nFile contains raw data at the end!\n"); */
 
 		readRawData((unsigned long long)(nextSegmentOffset - file.tellg()), verbose);
 	}
 
-	if (verbose)
-		printf("\nNumber of segments: %d\n", (unsigned int)d_segments.size());
+	/* if (verbose) */
+	/* 	printf("\nNumber of segments: %d\n", (unsigned int)d_segments.size()); */
 }
 
 unsigned long long TdmsParser::readSegment(const bool verbose, bool *atEnd)
@@ -148,8 +148,8 @@ unsigned long long TdmsParser::readSegment(const bool verbose, bool *atEnd)
 
 	*atEnd = (nextSegmentOffset >= (long long)d_file_size);
 	long long nextOffset = (*atEnd) ? d_file_size : nextSegmentOffset + (long long)file.tellg();
-	if (verbose)
-		printf("NEXT OFFSET: %d (0x%X)\n", (unsigned int)nextOffset, (unsigned int)nextOffset);
+	/* if (verbose) */
+	/* 	printf("NEXT OFFSET: %d (0x%X)\n", (unsigned int)nextOffset, (unsigned int)nextOffset); */
 
 	unsigned long long offset = leadIn->getDataOffset(), total_chunk_size = 0;
 
@@ -160,28 +160,29 @@ unsigned long long TdmsParser::readSegment(const bool verbose, bool *atEnd)
 
 		if (leadIn->hasRawData()){
 			file.seekg(posAfterLeadIn + offset, ios_base::beg);
-			if (verbose)
-				printf("\tRaw data starts at POS: 0x%X\n", (unsigned int)file.tellg());
+			/* if (verbose) */
+			/* 	printf("\tRaw data starts at POS: 0x%X\n", (unsigned int)file.tellg()); */
 
 			total_chunk_size = nextSegmentOffset - offset;
 			d_prev_object = metaData->readRawData(total_chunk_size, d_prev_object);
 
-			if (verbose)
-				printf("\tPOS after metadata: 0x%X\n", (unsigned int)file.tellg());
+			/* if (verbose) */
+			/* 	printf("\tPOS after metadata: 0x%X\n", (unsigned int)file.tellg()); */
 		}
 	} else if (leadIn->hasRawData()){
-		if (verbose)
-			printf("\tSegment without metadata!\n");
+		/* if (verbose) */
+		/* 	printf("\tSegment without metadata!\n"); */
 
 		total_chunk_size = nextSegmentOffset - offset;
 
 		file.seekg(posAfterLeadIn + offset, ios_base::beg);
-		if (verbose)
-			printf("\tRaw data starts at POS: 0x%X\n", (unsigned int)file.tellg());
+		/* if (verbose) */
+		/* 	printf("\tRaw data starts at POS: 0x%X\n", (unsigned int)file.tellg()); */
 
 		readRawData(total_chunk_size, verbose);
-	} else if (verbose)
-		printf("\tSegment without metadata or raw data!\n");
+	}
+	/* } else if (verbose) */
+	/* 	printf("\tSegment without metadata or raw data!\n"); */
 
 	if (seg)
 		seg->setRawDataChunkSize(total_chunk_size);
@@ -196,27 +197,27 @@ bool TdmsParser::readChannelData(TdmsChannel *ch, const bool verbose)
 
 	init();
 
-	if (verbose)
-		printf("\nReading channel %s data from file: '%s'\n", ch->getName().c_str(), d_file_name.c_str());
+	/* if (verbose) */
+	/* 	printf("\nReading channel %s data from file: '%s'\n", ch->getName().c_str(), d_file_name.c_str()); */
 
 	if (!ch->reserveMemory()){
-		if (verbose)
-			printf("\nCouldn't allocate memory for storing data in channel %s!\n", ch->getName().c_str());
+		/* if (verbose) */
+		/* 	printf("\nCouldn't allocate memory for storing data in channel %s!\n", ch->getName().c_str()); */
 		return false;
 	}
 
 	unsigned long long nextSegmentOffset = 0;
 	for (unsigned int i = 0; i < d_segments.size(); i++){
-		if (verbose)
-			printf("\nReading segment: %d\n", i + 1);
+		/* if (verbose) */
+		/* 	printf("\nReading segment: %d\n", i + 1); */
 
 		TdmsSegment *seg = d_segments.at(i);
 		if (seg)
 			nextSegmentOffset = readChannelDataFromSegment(ch, seg, verbose);
 	}
 
-	if (verbose && (nextSegmentOffset != d_file_size))
-		printf("\nFile contains raw data at the end!\n");
+	/* if (verbose && (nextSegmentOffset != d_file_size)) */
+	/* 	printf("\nFile contains raw data at the end!\n"); */
 
 	return true;
 }
@@ -230,8 +231,8 @@ unsigned long long TdmsParser::readChannelDataFromSegment(TdmsChannel *ch, TdmsS
 	file.seekg(pos);
 
 	unsigned long long total_chunk_size = seg->getRawDataChunkSize();
-	if (verbose)
-		printf("\tCursor pos: %lld (0x%llX), raw data chunk size: %lld\n", pos, pos, total_chunk_size);
+	/* if (verbose) */
+	/* 	printf("\tCursor pos: %lld (0x%llX), raw data chunk size: %lld\n", pos, pos, total_chunk_size); */
 
 	if (!total_chunk_size)
 		return pos;
@@ -245,11 +246,12 @@ unsigned long long TdmsParser::readChannelDataFromSegment(TdmsChannel *ch, TdmsS
 		if (metaData && leadIn->hasRawData())
 			d_prev_object = metaData->readChannelRawData(ch, seg, d_prev_object);
 	} else if (leadIn->hasRawData()){
-		if (verbose)
-			printf("\tSegment without metadata!\n");
+		/* if (verbose) */
+		/* 	printf("\tSegment without metadata!\n"); */
 		readChannelRawDataFromSegment(ch, seg, total_chunk_size, verbose);
-	} else if (verbose)
-		printf("\tSegment without metadata or raw data!\n");
+	}
+	/* } else if (verbose) */
+	/* 	printf("\tSegment without metadata or raw data!\n"); */
 
 	return (unsigned long long)file.tellg();
 }
@@ -260,12 +262,12 @@ bool TdmsParser::readChannelRawDataFromSegment(TdmsChannel *ch, TdmsSegment *seg
 		return false;
 
 	unsigned long long pos = (unsigned long long)file.tellg();
-	if (verbose){
-		if (seg->getInterleavedFlag())
-			printf("\tShould read %d raw interleaved data bytes from 0x%llX\n", (unsigned int)total_chunk_size, pos);
-		else
-			printf("\tShould read %d raw non-interleaved data bytes from 0x%llX\n", (unsigned int)total_chunk_size, pos);
-	}
+	/* if (verbose){ */
+	/* 	if (seg->getInterleavedFlag()) */
+	/* 		printf("\tShould read %d raw interleaved data bytes from 0x%llX\n", (unsigned int)total_chunk_size, pos); */
+	/* 	else */
+	/* 		printf("\tShould read %d raw non-interleaved data bytes from 0x%llX\n", (unsigned int)total_chunk_size, pos); */
+	/* } */
 
 	unsigned int groupCount = d_groups.size();
 	for (unsigned int i = 0; i < groupCount; i++){
@@ -285,8 +287,8 @@ bool TdmsParser::readChannelRawDataFromSegment(TdmsChannel *ch, TdmsSegment *seg
 			continue;
 
 		unsigned int chunks = total_chunk_size/chunkSize;
-		if (verbose)
-			printf("\tTotal: %d chunks of raw data.\n", chunks);
+		/* if (verbose) */
+		/* 	printf("\tTotal: %d chunks of raw data.\n", chunks); */
 
 		unsigned long long offset = 0;
 		for (unsigned int j = 0; j < channels; j++){
@@ -297,8 +299,8 @@ bool TdmsParser::readChannelRawDataFromSegment(TdmsChannel *ch, TdmsSegment *seg
 				break;
 		}
 
-		if (verbose)
-			printf("\tChannel offset is %lld\n", offset);
+		/* if (verbose) */
+		/* 	printf("\tChannel offset is %lld\n", offset); */
 
 		for (unsigned int k = 0; k < chunks; k++){
 			file.seekg(pos + (k + 1)*offset);
@@ -322,12 +324,12 @@ bool TdmsParser::readRawData(unsigned long long total_chunk_size, const bool ver
 			interleavedData = leadIn->getInterleavedFlag();
 	}
 
-	if (verbose){
-		if (interleavedData)
-			printf("\tShould read %d raw interleaved data bytes\n", (unsigned int)total_chunk_size);
-		else
-			printf("\tShould read %d raw non-interleaved data bytes\n", (unsigned int)total_chunk_size);
-	}
+	/* if (verbose){ */
+	/* 	if (interleavedData) */
+	/* 		printf("\tShould read %d raw interleaved data bytes\n", (unsigned int)total_chunk_size); */
+	/* 	else */
+	/* 		printf("\tShould read %d raw non-interleaved data bytes\n", (unsigned int)total_chunk_size); */
+	/* } */
 
 	unsigned int groupCount = d_groups.size();
 	for (unsigned int i = 0; i < groupCount; i++){
@@ -341,16 +343,16 @@ bool TdmsParser::readRawData(unsigned long long total_chunk_size, const bool ver
 			TdmsChannel *channel = group->getChannel(j);
 			if (channel){
 				unsigned long long channelSize = channel->getChannelSize();
-				if (verbose)
-					printf("\tChannel %s size is: %d\n", channel->getName().c_str(), (unsigned int)channelSize);
+				/* if (verbose) */
+				/* 	printf("\tChannel %s size is: %d\n", channel->getName().c_str(), (unsigned int)channelSize); */
 
 				chunkSize += channelSize;
 			}
 		}
 
 		unsigned int chunks = total_chunk_size/chunkSize;
-		if (verbose)
-			printf("Total: %d chunks of raw data.\n", chunks);
+		/* if (verbose) */
+		/* 	printf("Total: %d chunks of raw data.\n", chunks); */
 
 		for (unsigned int k = 0; k < chunks; k++){
 			for (unsigned int j = 0; j < channels; j++){

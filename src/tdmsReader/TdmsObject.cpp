@@ -20,14 +20,14 @@ d_channel(0)
 	readRawDataInfo();
 	readPropertyCount();
 
-	if (verbose)
-		printf("	Properties (%d):\n", propertyCount);
+	/* if (verbose) */
+	/* 	printf("	Properties (%d):\n", propertyCount); */
 
 	for (unsigned int i = 0; i < propertyCount; ++i)
 		readProperty(i);
 
-	if (verbose)
-		printf ("\t\tPOS: 0x%X\n", (unsigned int)file.tellg());
+	/* if (verbose) */
+	/* 	printf ("\t\tPOS: 0x%X\n", (unsigned int)file.tellg()); */
 }
 
 void TdmsObject::readProperty(unsigned int i)
@@ -41,8 +41,8 @@ void TdmsObject::readProperty(unsigned int i)
 	unsigned int itype;
 	file >> itype;
 
-	if (d_verbose)
-		printf("	%d %s: ", i + 1, name.c_str());
+	/* if (d_verbose) */
+	/* 	printf("	%d %s: ", i + 1, name.c_str()); */
 
 	string val = readValue(itype);
 	if (!val.empty())
@@ -78,8 +78,8 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 			file >> val;
 			if (channel)
 				channel->appendValue((double)val);
-			if (d_verbose)
-				printf("%d (type = %d)\n", (int)val, itype);
+			/* if (d_verbose) */
+			/* 	printf("%d (type = %d)\n", (int)val, itype); */
 		}
 	break;
 
@@ -89,8 +89,8 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 			file >> val;
 			if (channel)
 				channel->appendValue((double)val);
-			if (d_verbose)
-				printf("%d (type = %d)\n", (int)val, itype);
+			/* if (d_verbose) */
+			/* 	printf("%d (type = %d)\n", (int)val, itype); */
 			snprintf(output, size, "%d", val);
 		}
 	break;
@@ -101,8 +101,8 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 			file >> val;
 			if (channel)
 				channel->appendValue((double)val);
-			if (d_verbose)
-				printf("%d (type = %d)\n", val, itype);
+			/* if (d_verbose) */
+			/* 	printf("%d (type = %d)\n", val, itype); */
 
 			snprintf(output, size, "%d", val);
 		}
@@ -114,8 +114,8 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 			file >> val;
 			if (channel)
 				channel->appendValue((double)val);
-			if (d_verbose)
-				printf("%d (type = %d)\n", (int)val, itype);
+			/* if (d_verbose) */
+			/* 	printf("%d (type = %d)\n", (int)val, itype); */
 			snprintf(output, size, "%d", (int)val);
 		}
 	break;
@@ -126,8 +126,8 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 			file >> val;
 			if (channel)
 				channel->appendValue((double)val);
-			if (d_verbose)
-				printf("%d (type = %d)\n", (int)val, itype);
+			/* if (d_verbose) */
+			/* 	printf("%d (type = %d)\n", (int)val, itype); */
 			snprintf(output, size, "%d", val);
 		}
 	break;
@@ -139,8 +139,8 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 			file >> val;
 			if (channel)
 				channel->appendValue((double)val);
-			if (d_verbose)
-				printf("%d (type = %d)\n", (int)val, itype);
+			/* if (d_verbose) */
+			/* 	printf("%d (type = %d)\n", (int)val, itype); */
 			snprintf(output, size, "%d", val);
 		}
 	break;
@@ -151,8 +151,8 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 			file >> val;
 			if (channel)
 				channel->appendValue((double)val);
-			if (d_verbose)
-				printf("%u (type = %d)\n", val, itype);
+			/* if (d_verbose) */
+			/* 	printf("%u (type = %d)\n", val, itype); */
 			snprintf(output, size, "%u", val);
 		}
 	break;
@@ -163,8 +163,8 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 			file >> val;
 			if (channel)
 				channel->appendValue((double)val);
-			if (d_verbose)
-				printf("%u (type = %d)\n", (unsigned int)val, itype);
+			/* if (d_verbose) */
+			/* 	printf("%u (type = %d)\n", (unsigned int)val, itype); */
 			snprintf(output, size, "%u", (unsigned int)val);
 		}
 	break;
@@ -176,8 +176,8 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 			file >> val;
 			if (channel)
 				channel->appendValue((float)val);
-			if (d_verbose)
-				printf("%g (type = %d)\n", val, itype);
+			/* if (d_verbose) */
+			/* 	printf("%g (type = %d)\n", val, itype); */
 			snprintf(output, size, "%g", val);
 		}
 	break;
@@ -189,8 +189,8 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 			file >> val;
 			if (channel)
 				channel->appendValue(val);
-			if (d_verbose)
-				printf("%g (type = %d)\n", val, itype);
+			/* if (d_verbose) */
+			/* 	printf("%g (type = %d)\n", val, itype); */
 
 			snprintf(output, size, "%g", val);
 		}
@@ -203,8 +203,8 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 			file >> val;
 			if (channel)
 				channel->appendValue((double)val);
-			if (d_verbose)
-				printf("%f (type = %d)\n", (double)val, itype);
+			/* if (d_verbose) */
+			/* 	printf("%f (type = %d)\n", (double)val, itype); */
 			snprintf(output, size, "%f", (double)val);
 		}
 	break;
@@ -215,8 +215,8 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 			file >> size;
 			string s(size, 0);
 			file >> s;
-			if (d_verbose)
-				printf("%s (type = %d)\n", s.c_str(), itype);
+			/* if (d_verbose) */
+			/* 	printf("%s (type = %d)\n", s.c_str(), itype); */
 			return s;
 		}
 	break;
@@ -227,8 +227,8 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 			file >> val;
 			if (channel)
 				channel->appendValue((double)val);
-			if (d_verbose)
-				printf("%d (type = %d)\n", val, itype);
+			/* if (d_verbose) */
+			/* 	printf("%d (type = %d)\n", val, itype); */
 			snprintf(output, size, "%d", val);
 		}
 	break;
@@ -240,8 +240,8 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 			long long secondsSince;
 			file >> secondsSince;
 			string ts = timestamp(secondsSince, fractionsSecond);
-			if (d_verbose)
-				printf("%s (type = %d)\n", ts.c_str(), itype);
+			/* if (d_verbose) */
+			/* 	printf("%s (type = %d)\n", ts.c_str(), itype); */
 			return ts;
 		}
 	break;
@@ -255,8 +255,8 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 			file >> ival;
 			if (channel)
 				channel->appendImaginaryValue((float)ival);
-			if (d_verbose)
-				printf("%g+i*%g (type = 0x%X)\n", rval, ival, itype);
+			/* if (d_verbose) */
+			/* 	printf("%g+i*%g (type = 0x%X)\n", rval, ival, itype); */
 			snprintf(output, size, "%g+i*%g", rval, ival);
 		}
 	break;
@@ -270,16 +270,16 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 			file >> ival;
 			if (channel)
 				channel->appendImaginaryValue(ival);
-			if (d_verbose)
-				printf("%g+i*%g (type = 0x%X)\n", rval, ival, itype);
+			/* if (d_verbose) */
+			/* 	printf("%g+i*%g (type = 0x%X)\n", rval, ival, itype); */
 			snprintf(output, size, "%g+i*%g", rval, ival);
 		}
 	break;
 
 	default:
 		{
-			if (d_verbose)
-				printf(" (unknown type = %d)\n", itype);
+			/* if (d_verbose) */
+			/* 	printf(" (unknown type = %d)\n", itype); */
 		}
 	break;
 	}
@@ -413,16 +413,16 @@ void TdmsObject::readPath()
 	file >> size;
 	file >> path.assign(size, 0);
 
-	if (d_verbose){
-		printf("OBJECT PATH: %s", path.c_str());
-		if (isRoot())
-			printf(" is root!\n");
-		else if (isGroup())
-			printf(" is a group!\n");
-		else {
-			printf("\n Channel name: %s\n", getChannelName().c_str());
-		}
-	}
+	/* if (d_verbose){ */
+	/* 	printf("OBJECT PATH: %s", path.c_str()); */
+	/* 	if (isRoot()) */
+	/* 		printf(" is root!\n"); */
+	/* 	else if (isGroup()) */
+	/* 		printf(" is a group!\n"); */
+	/* 	else { */
+	/* 		printf("\n Channel name: %s\n", getChannelName().c_str()); */
+	/* 	} */
+	/* } */
 }
 
 void TdmsObject::setRawDataInfo(TdmsObject *obj)
@@ -436,12 +436,12 @@ void TdmsObject::setRawDataInfo(TdmsObject *obj)
 void TdmsObject::readRawDataInfo()
 {
 	file >> rawDataIndex;
-	if (d_verbose)
-		printf("\tRaw data index: %d @ 0x%X\n", rawDataIndex, (unsigned int)file.tellg());
+	/* if (d_verbose) */
+	/* 	printf("\tRaw data index: %d @ 0x%X\n", rawDataIndex, (unsigned int)file.tellg()); */
 
 	if (rawDataIndex == 0){
-		if (d_verbose)
-			printf("\t\tObject in this segment exactly matches the raw data index the same object had in the previous segment!\n");
+		/* if (d_verbose) */
+		/* 	printf("\t\tObject in this segment exactly matches the raw data index the same object had in the previous segment!\n"); */
 	}
 
 
@@ -455,14 +455,14 @@ void TdmsObject::readRawDataInfo()
 		if (rawDataType == TdmsChannel::tdsTypeString)
 			file >> nbytes;
 
-		if (d_verbose){
-			if (rawDataType == TdmsChannel::tdsTypeString)
-				printf("\tHas raw data: type=0x%X dimension=%d values=%d nbytes=%d\n", rawDataType, dimension, (unsigned int)nvalue, (unsigned int)nbytes);
-			else if (rawDataType == TdmsChannel::tdsTypeDAQmxRawData)
-				printf("\tHas DAQmx raw data: type=0x%X dimension=%d values=%d\n", rawDataType, dimension, (unsigned int)nvalue);
-			else
-				printf("\tHas raw data: type=0x%X dimension=%d values=%d\n", rawDataType, dimension, (unsigned int)nvalue);
-		}
+		/* if (d_verbose){ */
+		/* 	if (rawDataType == TdmsChannel::tdsTypeString) */
+		/* 		printf("\tHas raw data: type=0x%X dimension=%d values=%d nbytes=%d\n", rawDataType, dimension, (unsigned int)nvalue, (unsigned int)nbytes); */
+		/* 	else if (rawDataType == TdmsChannel::tdsTypeDAQmxRawData) */
+		/* 		printf("\tHas DAQmx raw data: type=0x%X dimension=%d values=%d\n", rawDataType, dimension, (unsigned int)nvalue); */
+		/* 	else */
+		/* 		printf("\tHas raw data: type=0x%X dimension=%d values=%d\n", rawDataType, dimension, (unsigned int)nvalue); */
+		/* } */
 
 		if (rawDataType == TdmsChannel::tdsTypeDAQmxRawData)
 			readFormatChangingScalers();
@@ -552,9 +552,9 @@ bool TdmsObject::readRawData(unsigned long long total_chunk_size, TdmsChannel* c
 		if (typeSize != 0)
 			nvalue = total_chunk_size/typeSize;
 
-		if (d_verbose)
-			printf("\tReading %d data value(s) of type %d and type size %d bytes (total size %d bytes).\n", (unsigned int)nvalue,
-			rawDataType, (unsigned int)typeSize, (unsigned int)total_chunk_size);
+		/* if (d_verbose) */
+		/* 	printf("\tReading %d data value(s) of type %d and type size %d bytes (total size %d bytes).\n", (unsigned int)nvalue, */
+		/* 	rawDataType, (unsigned int)typeSize, (unsigned int)total_chunk_size); */
 	} //else if (d_verbose)
 	//printf("\tReading %d raw data value(s) of type %d.\n", (unsigned int)nvalue, rawDataType);
 
@@ -576,52 +576,52 @@ void TdmsObject::readFormatChangingScalers()
 {
 	unsigned int scalersCount;
 	file >> scalersCount;
-	if (d_verbose)
-		printf("\tFormat changing scalers vector size: %d @ 0x%X\n", scalersCount, (unsigned int)file.tellg());
+	/* if (d_verbose) */
+	/* 	printf("\tFormat changing scalers vector size: %d @ 0x%X\n", scalersCount, (unsigned int)file.tellg()); */
 
 	for (unsigned int i = 0; i < scalersCount; i++){
-		if (d_verbose & (scalersCount > 1))
-			printf("\t\ti = %d\n", i);
+		/* if (d_verbose & (scalersCount > 1)) */
+		/* 	printf("\t\ti = %d\n", i); */
 
 		FormatChangingScaler formatScaler;
 		file >> formatScaler.DAQmxDataType;
-		if (d_verbose)
-			printf("\t\tDAQmx data type: %d @ 0x%X\n", formatScaler.DAQmxDataType, (unsigned int)file.tellg());
+		/* if (d_verbose) */
+		/* 	printf("\t\tDAQmx data type: %d @ 0x%X\n", formatScaler.DAQmxDataType, (unsigned int)file.tellg()); */
 
 		file >> formatScaler.rawBufferIndex;
-		if (d_verbose)
-			printf("\t\tRaw buffer index: %d @ 0x%X\n", formatScaler.rawBufferIndex, (unsigned int)file.tellg());
+		/* if (d_verbose) */
+		/* 	printf("\t\tRaw buffer index: %d @ 0x%X\n", formatScaler.rawBufferIndex, (unsigned int)file.tellg()); */
 
 		file >> formatScaler.rawByteOffset;
-		if (d_verbose)
-			printf("\t\tRaw byte offset within the stride: %d @ 0x%X\n", formatScaler.rawByteOffset, (unsigned int)file.tellg());
+		/* if (d_verbose) */
+		/* 	printf("\t\tRaw byte offset within the stride: %d @ 0x%X\n", formatScaler.rawByteOffset, (unsigned int)file.tellg()); */
 
 		file >> formatScaler.sampleFormatBitmap;
-		if (d_verbose)
-			printf("\t\tSample format bitmap: %d @ 0x%X\n", formatScaler.sampleFormatBitmap, (unsigned int)file.tellg());
+		/* if (d_verbose) */
+		/* 	printf("\t\tSample format bitmap: %d @ 0x%X\n", formatScaler.sampleFormatBitmap, (unsigned int)file.tellg()); */
 
 		file >> formatScaler.scaleID;
-		if (d_verbose)
-			printf("\t\tScale ID: %d @ 0x%X\n", formatScaler.scaleID, (unsigned int)file.tellg());
+		/* if (d_verbose) */
+		/* 	printf("\t\tScale ID: %d @ 0x%X\n", formatScaler.scaleID, (unsigned int)file.tellg()); */
 
 		d_format_scalers_vector.push_back(formatScaler);
 	}
 
 	unsigned int vectorSize;
 	file >> vectorSize;
-	if (d_verbose)
-		printf("\tRaw data width vector size: %d @ 0x%X\n", vectorSize, (unsigned int)file.tellg());
+	/* if (d_verbose) */
+	/* 	printf("\tRaw data width vector size: %d @ 0x%X\n", vectorSize, (unsigned int)file.tellg()); */
 
 	for (unsigned int i = 0; i < vectorSize; i++){
 		unsigned int val;
 		file >> val;
 
 		d_raw_data_width_vector.push_back(val);
-		if (d_verbose){
-			if (vectorSize > 1)
-				printf("\ti = %d", i);
-			printf("\tData width: %d @ 0x%X\n", val, (unsigned int)file.tellg());
-		}
+		/* if (d_verbose){ */
+		/* 	if (vectorSize > 1) */
+		/* 		printf("\ti = %d", i); */
+		/* 	printf("\tData width: %d @ 0x%X\n", val, (unsigned int)file.tellg()); */
+		/* } */
 	}
 }
 

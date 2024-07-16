@@ -113,12 +113,12 @@ bool TdmsChannel::readRawData(unsigned long long total_chunk_size, bool verbose)
 	if (nvalues == 0 && typeSize != 0)
 		nvalues = total_chunk_size/typeSize;
 
-	if (verbose)
-		printf("\tChannel %s: reading %d raw data value(s) of type %d.", d_name.c_str(), (unsigned int)nvalues, dataType);
+	/* if (verbose) */
+	/* 	printf("\tChannel %s: reading %d raw data value(s) of type %d.", d_name.c_str(), (unsigned int)nvalues, dataType); */
 
 	if (!reserveDataMemory(nvalues)){
-		if (verbose)
-			printf("\t\tCouldn't allocate memory for storing data in channel %s!\n", d_name.c_str());
+		/* if (verbose) */
+		/* 	printf("\t\tCouldn't allocate memory for storing data in channel %s!\n", d_name.c_str()); */
 		return false;
 	}
 
@@ -129,8 +129,8 @@ bool TdmsChannel::readRawData(unsigned long long total_chunk_size, bool verbose)
 			readValue(dataType, false);
 	}
 
-	if (verbose)
-		printf("\tFinished reading raw data (POS: 0x%X).\n", (unsigned int)file.tellg());
+	/* if (verbose) */
+	/* 	printf("\tFinished reading raw data (POS: 0x%X).\n", (unsigned int)file.tellg()); */
 
 	return true;
 }
@@ -164,17 +164,17 @@ bool TdmsChannel::readDAQmxData(std::vector<FormatChangingScaler> formatScalers,
 		unsigned int rawByteOffset = formatScaler.rawByteOffset;
 		unsigned int channelCnt = d_group ? d_group->getGroupSize() : 1;
 		unsigned int channelIndex = d_group ? d_group->getChannelIndex(this) : 0;
-		if (verbose){
-			printf("\tChannel %s: reading %d values. Slope: %g intercept: %g interleaved: %d rawByteOffset: %d\n",
-			d_name.c_str(), (unsigned int)nvalues, slope, intercept, flagIsInterleaved, rawByteOffset);
-		}
+		/* if (verbose){ */
+		/* 	printf("\tChannel %s: reading %d values. Slope: %g intercept: %g interleaved: %d rawByteOffset: %d\n", */
+			/* d_name.c_str(), (unsigned int)nvalues, slope, intercept, flagIsInterleaved, rawByteOffset); */
+		/* } */
 		unsigned long long pos = (unsigned long long)file.tellg();//start position of the data chunk
 		for (unsigned int i = 0; i < nvalues; ++i)
 			readDAQmxValue(type, slope, intercept, rawByteOffset, channelIndex, channelCnt);
 		if (flagIsInterleaved && !rawByteOffset && (channelIndex < channelCnt - 1))
 			file.seekg(pos, ios_base::beg);
-		if (verbose)
-			printf("\t\tCursor at: 0x%X\n", (unsigned int)file.tellg());
+		/* if (verbose) */
+		/* 	printf("\t\tCursor at: 0x%X\n", (unsigned int)file.tellg()); */
 	} else {
 		for (unsigned int i = 0; i < nvalues; ++i)
 			readValue(type);
@@ -185,8 +185,8 @@ bool TdmsChannel::readDAQmxData(std::vector<FormatChangingScaler> formatScalers,
 void TdmsChannel::readDAQmxValue(unsigned int type, double slope, double intercept, unsigned int rawByteOffset,
 unsigned int index, unsigned int channelCnt, bool verbose)
 {
-	if (verbose)
-		printf("\tRead DAQmx value for channel %s index in group: %d/%d. rawByteOffset: %d\n", d_name.c_str(), index, channelCnt, rawByteOffset);
+	/* if (verbose) */
+	/* 	printf("\tRead DAQmx value for channel %s index in group: %d/%d. rawByteOffset: %d\n", d_name.c_str(), index, channelCnt, rawByteOffset); */
 
 	switch (type){
 	case tdsTypeI32:
@@ -196,8 +196,8 @@ unsigned int index, unsigned int channelCnt, bool verbose)
 
 			int val;
 			file >> val;
-			if (verbose)
-				printf("\t%d -> %.10g (type = %d)\n", val, val*slope + intercept, type);
+			/* if (verbose) */
+			/* 	printf("\t%d -> %.10g (type = %d)\n", val, val*slope + intercept, type); */
 			appendValue(val*slope + intercept);
 
 			if (flagIsInterleaved){
@@ -209,8 +209,8 @@ unsigned int index, unsigned int channelCnt, bool verbose)
 
 	default:
 		{
-			if (verbose)
-				printf("\t(unknown type = %d)\n", type);
+			/* if (verbose) */
+			/* 	printf("\t(unknown type = %d)\n", type); */
 		}
 	break;
 	}
@@ -367,8 +367,8 @@ void TdmsChannel::appendString(std::string s)
 void TdmsChannel::readValue(unsigned int itype, bool verbose)
 {
 
-	if (verbose)
-		printf("	Read value for channel: %s\n", d_name.c_str());
+	/* if (verbose) */
+	/* 	printf("	Read value for channel: %s\n", d_name.c_str()); */
 
 	switch (itype){
 	case tdsTypeI8: //INT8
@@ -376,8 +376,8 @@ void TdmsChannel::readValue(unsigned int itype, bool verbose)
 			char val;
 			file >> val;
 			appendValue((double)val);
-			if (verbose)
-				printf("%d (type = %d)\n", (int)val, itype);
+			/* if (verbose) */
+			/* 	printf("%d (type = %d)\n", (int)val, itype); */
 		}
 	break;
 
@@ -386,8 +386,8 @@ void TdmsChannel::readValue(unsigned int itype, bool verbose)
 			short val;
 			file >> val;
 			appendValue((double)val);
-			if (verbose)
-				printf("%d (type = %d)\n", (int)val, itype);
+			/* if (verbose) */
+			/* 	printf("%d (type = %d)\n", (int)val, itype); */
 		}
 	break;
 
@@ -396,8 +396,8 @@ void TdmsChannel::readValue(unsigned int itype, bool verbose)
 			int val;
 			file >> val;
 			appendValue((double)val);
-			if (verbose)
-				printf("%d (type = %d)\n", val, itype);
+			/* if (verbose) */
+			/* 	printf("%d (type = %d)\n", val, itype); */
 		}
 	break;
 
@@ -406,8 +406,8 @@ void TdmsChannel::readValue(unsigned int itype, bool verbose)
 			long long val;
 			file >> val;
 			appendValue((double)val);
-			if (verbose)
-				printf("%d (type = %d)\n", (int)val, itype);
+			/* if (verbose) */
+			/* 	printf("%d (type = %d)\n", (int)val, itype); */
 		}
 	break;
 
@@ -416,8 +416,8 @@ void TdmsChannel::readValue(unsigned int itype, bool verbose)
 			unsigned char val;
 			file >> val;
 			appendValue((double)val);
-			if (verbose)
-				printf("%d (type = %d)\n", (int)val, itype);
+			/* if (verbose) */
+			/* 	printf("%d (type = %d)\n", (int)val, itype); */
 		}
 	break;
 
@@ -427,8 +427,8 @@ void TdmsChannel::readValue(unsigned int itype, bool verbose)
 			unsigned short val;
 			file >> val;
 			appendValue((double)val);
-			if (verbose)
-				printf("%d (type = %d)\n", (int)val, itype);
+			/* if (verbose) */
+			/* 	printf("%d (type = %d)\n", (int)val, itype); */
 		}
 	break;
 
@@ -437,8 +437,8 @@ void TdmsChannel::readValue(unsigned int itype, bool verbose)
 			unsigned int val;
 			file >> val;
 			appendValue((double)val);
-			if (verbose)
-				printf("%u (type = %d)\n", val, itype);
+			/* if (verbose) */
+			/* 	printf("%u (type = %d)\n", val, itype); */
 		}
 	break;
 
@@ -447,8 +447,8 @@ void TdmsChannel::readValue(unsigned int itype, bool verbose)
 			unsigned long long val;
 			file >> val;
 			appendValue((double)val);
-			if (verbose)
-				printf("%u (type = %d)\n", (unsigned int)val, itype);
+			/* if (verbose) */
+			/* 	printf("%u (type = %d)\n", (unsigned int)val, itype); */
 		}
 	break;
 
@@ -458,8 +458,8 @@ void TdmsChannel::readValue(unsigned int itype, bool verbose)
 			float val;
 			file >> val;
 			appendValue((float)val);
-			if (verbose)
-				printf("%f (type = %d)\n", val, itype);
+			/* if (verbose) */
+			/* 	printf("%f (type = %d)\n", val, itype); */
 		}
 	break;
 
@@ -469,8 +469,8 @@ void TdmsChannel::readValue(unsigned int itype, bool verbose)
 			double val;
 			file >> val;
 			appendValue(val);
-			if (verbose)
-				printf("%f (type = %d)\n", val, itype);
+			/* if (verbose) */
+			/* 	printf("%f (type = %d)\n", val, itype); */
 		}
 	break;
 
@@ -480,8 +480,8 @@ void TdmsChannel::readValue(unsigned int itype, bool verbose)
 			long double val;
 			file >> val;
 			appendValue((double)val);
-			if (verbose)
-				printf("%f (type = %d)\n", (double)val, itype);
+			/* if (verbose) */
+			/* 	printf("%f (type = %d)\n", (double)val, itype); */
 		}
 	break;
 
@@ -493,8 +493,8 @@ void TdmsChannel::readValue(unsigned int itype, bool verbose)
 			bool val;
 			file >> val;
 			appendValue((double)val);
-			if (verbose)
-				printf("%d (type = %d)\n", val, itype);
+			/* if (verbose) */
+			/* 	printf("%d (type = %d)\n", val, itype); */
 		}
 	break;
 
@@ -506,8 +506,8 @@ void TdmsChannel::readValue(unsigned int itype, bool verbose)
 			file >> secondsSince;
 			string ts = TdmsObject::timestamp(secondsSince, fractionsSecond);
 			appendString(ts);
-			if (verbose)
-				printf("%s (type = %d)\n", ts.c_str(), itype);
+			/* if (verbose) */
+			/* 	printf("%s (type = %d)\n", ts.c_str(), itype); */
 		}
 	break;
 
@@ -518,8 +518,8 @@ void TdmsChannel::readValue(unsigned int itype, bool verbose)
 			appendValue((float)rval);
 			file >> ival;
 			appendImaginaryValue((float)ival);
-			if (verbose)
-				printf("%g+i*%g (type = 0x%X)\n", rval, ival, itype);
+			/* if (verbose) */
+			/* 	printf("%g+i*%g (type = 0x%X)\n", rval, ival, itype); */
 		}
 	break;
 
@@ -530,15 +530,15 @@ void TdmsChannel::readValue(unsigned int itype, bool verbose)
 			appendValue(rval);
 			file >> ival;
 			appendImaginaryValue(ival);
-			if (verbose)
-				printf("%g+i*%g (type = 0x%X)\n", rval, ival, itype);
+			/* if (verbose) */
+			/* 	printf("%g+i*%g (type = 0x%X)\n", rval, ival, itype); */
 		}
 	break;
 
 	default:
 		{
-			if (verbose)
-				printf(" (unknown type = %d)\n", itype);
+			/* if (verbose) */
+			/* 	printf(" (unknown type = %d)\n", itype); */
 		}
 	break;
 	}

@@ -26,8 +26,8 @@ void TdmsLeadIn::read(std::iendianfstream& file, const bool verbose)
 		flagHasObjectList = false;
 		flagHasRawData = false;
 		flagHasDAQmxData = false;
-		if (verbose)
-			printf("\nInvalid header tag: '%s' read from file, should be 'TDSm'!\n", tdmsString.c_str());
+		/* if (verbose) */
+		/* 	printf("\nInvalid header tag: '%s' read from file, should be 'TDSm'!\n", tdmsString.c_str()); */
 		return;
 	}
 
@@ -45,17 +45,17 @@ void TdmsLeadIn::read(std::iendianfstream& file, const bool verbose)
 	file >> nextSegmentOffset;
 	file >> dataOffset;
 
-	if (verbose && flagHasMetaData){
-		std::cout << "\nRead lead-in data" << std::endl;
-		std::cout << "  hasMetaData:         " << flagHasMetaData << std::endl;
-		std::cout << "  hasObjectList:       " << flagHasObjectList << std::endl;
-		std::cout << "  hasRawData:          " << flagHasRawData << std::endl;
-		std::cout << "  isInterleaved:       " << flagIsInterleaved << std::endl;
-		std::cout << "  isBigEndian:         " << flagIsBigEndian << std::endl;
-		std::cout << "  hasDAQmxData:        " << flagHasDAQmxData << std::endl;
-		std::cout << "  Version number:      " << versionNumber << std::endl;
-		std::cout << "  Next segment offset: " << nextSegmentOffset << std::endl;
-		std::cout << "  Data offset:         " << dataOffset << std::endl;
-		printf ("\tPOS: 0x%X\n", (unsigned int)file.tellg());
-	}
+	/* if (verbose && flagHasMetaData){ */
+	/* 	std::cout << "\nRead lead-in data" << std::endl; */
+	/* 	std::cout << "  hasMetaData:         " << flagHasMetaData << std::endl; */
+	/* 	std::cout << "  hasObjectList:       " << flagHasObjectList << std::endl; */
+	/* 	std::cout << "  hasRawData:          " << flagHasRawData << std::endl; */
+	/* 	std::cout << "  isInterleaved:       " << flagIsInterleaved << std::endl; */
+	/* 	std::cout << "  isBigEndian:         " << flagIsBigEndian << std::endl; */
+	/* 	std::cout << "  hasDAQmxData:        " << flagHasDAQmxData << std::endl; */
+	/* 	std::cout << "  Version number:      " << versionNumber << std::endl; */
+	/* 	std::cout << "  Next segment offset: " << nextSegmentOffset << std::endl; */
+	/* 	std::cout << "  Data offset:         " << dataOffset << std::endl; */
+	/* 	printf ("\tPOS: 0x%X\n", (unsigned int)file.tellg()); */
+	/* } */
 }

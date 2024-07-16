@@ -21,7 +21,7 @@ if [ ! -d $TODIR ]; then
     exit 1
 fi
 
-echo "ALL GOOD SO FAR"
+# echo "ALL GOOD SO FAR"
 
 files=$(ls -d $FROMDIR/* | grep .tdms)
 

@@ -28,14 +28,14 @@ TdmsMetaData::~TdmsMetaData()
 void TdmsMetaData::read(std::iendianfstream& file, const bool verbose)
 {
 	file >> d_objectCount;
-	if (verbose)
-		print();
+	/* if (verbose) */
+	/* 	print(); */
 
 	for (unsigned int i = 0; i < d_objectCount; i++)
 		readObject(file, verbose);
 
-	if (verbose)
-		printf ("\tRaw data chunk size: %d\n", (unsigned int)getRawDataChunkSize());
+	/* if (verbose) */
+	/* 	printf ("\tRaw data chunk size: %d\n", (unsigned int)getRawDataChunkSize()); */
 }
 
 void TdmsMetaData::readObject(std::iendianfstream& file, const bool verbose)
@@ -59,8 +59,8 @@ void TdmsMetaData::readObject(std::iendianfstream& file, const bool verbose)
 			group = new TdmsGroup(path);
 			group->setObject(o);
 			d_parser->addGroup(group);
-			if (verbose)
-				printf("NEW GROUP: %s\n", path.c_str());
+			/* if (verbose) */
+			/* 	printf("NEW GROUP: %s\n", path.c_str()); */
 		}
 	} else {
 		int islash = path.find("'/'", 1) + 1;
@@ -71,8 +71,8 @@ void TdmsMetaData::readObject(std::iendianfstream& file, const bool verbose)
 		if (!group){
 			group = new TdmsGroup(groupName);
 			d_parser->addGroup(group);
-			if (verbose)
-				printf("NEW GROUP: %s\n", path.c_str());
+			/* if (verbose) */
+			/* 	printf("NEW GROUP: %s\n", path.c_str()); */
 		}
 
 		TdmsChannel *channel = group->getChannel(channelName);
@@ -87,8 +87,8 @@ void TdmsMetaData::readObject(std::iendianfstream& file, const bool verbose)
 			channel->setTypeSize((type == TdmsChannel::tdsTypeString) ? (unsigned int)o->getBytesCount() : TdmsObject::dataTypeSize(type));
 
 			group->addChannel(channel);
-			if (verbose)
-				printf("NEW CHANNEL: %s\n", channelName.c_str());
+			/* if (verbose) */
+			/* 	printf("NEW CHANNEL: %s\n", channelName.c_str()); */
 		}
 
 		std::map<std::string, std::string> properties = o->getProperties();
@@ -200,8 +200,8 @@ TdmsObject* TdmsMetaData::readRawData(unsigned long long total_chunk_size, TdmsO
 
 	d_chunks = total_chunk_size/chunk_size;
 	bool interleavedData = d_parser->currentSegmentInterleaved();
-	if (d_verbose)
-		printf("\tNumber of data chunks: %d\n\tData is interleaved: %d\n", d_chunks, interleavedData);
+	/* if (d_verbose) */
+	/* 	printf("\tNumber of data chunks: %d\n\tData is interleaved: %d\n", d_chunks, interleavedData); */
 
 	if (interleavedData){
 		for (TdmsObjectList::iterator object = d_objects.begin(); object != d_objects.end(); ++object){
@@ -218,8 +218,8 @@ TdmsObject* TdmsMetaData::readRawData(unsigned long long total_chunk_size, TdmsO
 	}
 
 	for (unsigned int i = 0; i < d_chunks; i++){
-		if (d_verbose)
-			printf("\nReading data chunk %d...\n", i + 1);
+		/* if (d_verbose) */
+		/* 	printf("\nReading data chunk %d...\n", i + 1); */
 		for (TdmsObjectList::iterator object = d_objects.begin(); object != d_objects.end(); ++object){
 			TdmsObject *obj = (*object);
 			if (!obj)
@@ -289,8 +289,8 @@ TdmsObject* TdmsMetaData::readChannelRawData(TdmsChannel *channel, TdmsSegment *
 		return 0;
 
 	bool interleavedData =seg->getInterleavedFlag();
-	if (d_verbose)
-		printf("\tNumber of data chunks: %d\n\tData is interleaved: %d\n", d_chunks, interleavedData);
+	/* if (d_verbose) */
+	/* 	printf("\tNumber of data chunks: %d\n\tData is interleaved: %d\n", d_chunks, interleavedData); */
 
 	unsigned int chIndex = channel->getIndexWithinGroup();
 	TdmsObject *obj = getObject(channel);
@@ -298,8 +298,8 @@ TdmsObject* TdmsMetaData::readChannelRawData(TdmsChannel *channel, TdmsSegment *
 		return 0;
 
 	unsigned int channelCnt = getChannelCount();
-	if (d_verbose)
-		printf("\tChannel index: %d/%d nvalues: %lld\n", chIndex, channelCnt, obj->getValuesCount());
+	/* if (d_verbose) */
+	/* 	printf("\tChannel index: %d/%d nvalues: %lld\n", chIndex, channelCnt, obj->getValuesCount()); */
 
 	channel->setValuesCount(obj->getValuesCount());
 
@@ -307,8 +307,8 @@ TdmsObject* TdmsMetaData::readChannelRawData(TdmsChannel *channel, TdmsSegment *
 		channel->setInterleavedFlag(interleavedData && getInterleavedChannelCount(obj, channel));
 
 	for (unsigned int i = 0; i < d_chunks; i++){
-		if (d_verbose)
-			printf("\nReading data chunk %d...\n", i + 1);
+		/* if (d_verbose) */
+		/* 	printf("\nReading data chunk %d...\n", i + 1); */
 
 		unsigned int posIndex = i*channelCnt + chIndex;
 		if (posIndex >= d_chunk_raw_data_pos.size())
@@ -316,8 +316,8 @@ TdmsObject* TdmsMetaData::readChannelRawData(TdmsChannel *channel, TdmsSegment *
 
 		unsigned long long pos = d_chunk_raw_data_pos.at(posIndex);
 		file.seekg(pos);
-		if (d_verbose)
-			printf("\nReading channel data begins @ 0x%llX...\n", pos);
+		/* if (d_verbose) */
+		/* 	printf("\nReading channel data begins @ 0x%llX...\n", pos); */
 
 		if (obj->hasDAQmxData())
 			obj->readDAQmxData(channel, d_verbose);
