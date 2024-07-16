@@ -65,6 +65,8 @@ string TdmsObject::timestamp(long long secs, unsigned long long fractionSecs)
 
 string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 {
+	//WARN: THIS IS FOR READING THE PROPERTIES
+	
 	int size = 100;
 	char output [size];
 
@@ -72,14 +74,14 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 		channel->setDataType(itype);
 
 	switch (itype){
+
 	case TdmsChannel::tdsTypeI8: //INT8
 		{
 			char val;
 			file >> val;
-			if (channel)
-				channel->appendValue((double)val);
-			/* if (d_verbose) */
-			/* 	printf("%d (type = %d)\n", (int)val, itype); */
+			/* if (channel) */
+			/* 	channel->appendValue((double)val); */
+				/* printf("%d (type = %d)\n", (int)val, itype); */
 		}
 	break;
 
@@ -87,11 +89,10 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 		{
 			short val;
 			file >> val;
-			if (channel)
-				channel->appendValue((double)val);
-			/* if (d_verbose) */
-			/* 	printf("%d (type = %d)\n", (int)val, itype); */
-			snprintf(output, size, "%d", val);
+			/* if (channel) */
+			/* 	channel->appendValue((double)val); */
+				/* printf("%d (type = %d)\n", (int)val, itype); */
+			/* snprintf(output, size, "%d", val); */
 		}
 	break;
 
@@ -99,12 +100,11 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 		{
 			int val;
 			file >> val;
-			if (channel)
-				channel->appendValue((double)val);
+			/* if (channel) */
+			/* 	channel->appendValue((double)val); */
 			/* if (d_verbose) */
-			/* 	printf("%d (type = %d)\n", val, itype); */
-
-			snprintf(output, size, "%d", val);
+				/* printf("%d (type = %d)\n", val, itype); */
+			/* snprintf(output, size, "%d", val); */
 		}
 	break;
 
@@ -112,60 +112,60 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 		{
 			long long val;
 			file >> val;
-			if (channel)
-				channel->appendValue((double)val);
+			/* if (channel) */
+			/* 	channel->appendValue((double)val); */
 			/* if (d_verbose) */
-			/* 	printf("%d (type = %d)\n", (int)val, itype); */
-			snprintf(output, size, "%d", (int)val);
+				/* printf("%d (type = %d)\n", (int)val, itype); */
+			/* snprintf(output, size, "%d", (int)val); */
 		}
 	break;
 
 	case TdmsChannel::tdsTypeU8: //UINT8
 		{
-			unsigned char val;
+			uint8_t val;
 			file >> val;
-			if (channel)
-				channel->appendValue((double)val);
+			/* if (channel) */
+			/* 	channel->appendValue(val); */
 			/* if (d_verbose) */
 			/* 	printf("%d (type = %d)\n", (int)val, itype); */
-			snprintf(output, size, "%d", val);
+			/* snprintf(output, size, "%d", val); */
 		}
 	break;
 
 
 	case TdmsChannel::tdsTypeU16: //UINT16
 		{
-			unsigned short val;
+			uint16_t val;
 			file >> val;
-			if (channel)
-				channel->appendValue((double)val);
+			/* if (channel) */
+			/* 	channel->appendValue(val); */
 			/* if (d_verbose) */
 			/* 	printf("%d (type = %d)\n", (int)val, itype); */
-			snprintf(output, size, "%d", val);
+			/* snprintf(output, size, "%d", val); */
 		}
 	break;
 
 	case TdmsChannel::tdsTypeU32: //UINT32
 		{
-			unsigned int val;
+			uint32_t val;
 			file >> val;
-			if (channel)
-				channel->appendValue((double)val);
+			/* if (channel) */
+			/* 	channel->appendValue(val); */
 			/* if (d_verbose) */
 			/* 	printf("%u (type = %d)\n", val, itype); */
-			snprintf(output, size, "%u", val);
+			/* snprintf(output, size, "%u", val); */
 		}
 	break;
 
 	case TdmsChannel::tdsTypeU64: //UINT64
 		{
-			unsigned long long val;
+			uint64_t val;
 			file >> val;
-			if (channel)
-				channel->appendValue((double)val);
+			/* if (channel) */
+			/* 	channel->appendValue(val); */
 			/* if (d_verbose) */
 			/* 	printf("%u (type = %d)\n", (unsigned int)val, itype); */
-			snprintf(output, size, "%u", (unsigned int)val);
+			/* snprintf(output, size, "%u", (unsigned int)val); */
 		}
 	break;
 
@@ -174,11 +174,11 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 		{
 			float val;
 			file >> val;
-			if (channel)
-				channel->appendValue((float)val);
+			/* if (channel) */
+				/* channel->appendValue((float)val); */
 			/* if (d_verbose) */
 			/* 	printf("%g (type = %d)\n", val, itype); */
-			snprintf(output, size, "%g", val);
+			/* snprintf(output, size, "%g", val); */
 		}
 	break;
 
@@ -187,25 +187,11 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 		{
 			double val;
 			file >> val;
-			if (channel)
-				channel->appendValue(val);
+			/* if (channel) */
+			/* 	channel->appendValue(val); */
 			/* if (d_verbose) */
-			/* 	printf("%g (type = %d)\n", val, itype); */
-
-			snprintf(output, size, "%g", val);
-		}
-	break;
-
-	case TdmsChannel::tdsTypeExtendedFloat: //FLOAT128
-	case TdmsChannel::tdsTypeExtendedFloatWithUnit:
-		{
-			long double val;
-			file >> val;
-			if (channel)
-				channel->appendValue((double)val);
-			/* if (d_verbose) */
-			/* 	printf("%f (type = %d)\n", (double)val, itype); */
-			snprintf(output, size, "%f", (double)val);
+			/* printf("OBJECT: %g (type = %d)\n", val, itype); */
+			/* snprintf(output, size, "%g", val); */
 		}
 	break;
 
@@ -216,7 +202,7 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 			string s(size, 0);
 			file >> s;
 			/* if (d_verbose) */
-			/* 	printf("%s (type = %d)\n", s.c_str(), itype); */
+			/* printf("OBJECT: %s (type = %d)\n", s.c_str(), itype); */
 			return s;
 		}
 	break;
@@ -225,11 +211,11 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 		{
 			bool val;
 			file >> val;
-			if (channel)
-				channel->appendValue((double)val);
+			/* if (channel) */
+			/* 	channel->appendValue((double)val); */
 			/* if (d_verbose) */
-			/* 	printf("%d (type = %d)\n", val, itype); */
-			snprintf(output, size, "%d", val);
+				/* printf("%d (type = %d)\n", val, itype); */
+			/* snprintf(output, size, "%d", val); */
 		}
 	break;
 
@@ -241,8 +227,8 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 			file >> secondsSince;
 			string ts = timestamp(secondsSince, fractionsSecond);
 			/* if (d_verbose) */
-			/* 	printf("%s (type = %d)\n", ts.c_str(), itype); */
-			return ts;
+				/* printf("%s (type = %d)\n", ts.c_str(), itype); */
+			/* return ts; */
 		}
 	break;
 
@@ -250,14 +236,14 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 		{
 			float rval, ival;
 			file >> rval;
-			if (channel)
-				channel->appendValue((float)rval);
+			/* if (channel) */
+			/* 	channel->appendValue((float)rval); */
 			file >> ival;
-			if (channel)
-				channel->appendImaginaryValue((float)ival);
+			/* if (channel) */
+			/* 	channel->appendImaginaryValue((float)ival); */
 			/* if (d_verbose) */
-			/* 	printf("%g+i*%g (type = 0x%X)\n", rval, ival, itype); */
-			snprintf(output, size, "%g+i*%g", rval, ival);
+				/* printf("%g+i*%g (type = 0x%X)\n", rval, ival, itype); */
+			/* snprintf(output, size, "%g+i*%g", rval, ival); */
 		}
 	break;
 
@@ -265,21 +251,21 @@ string TdmsObject::readValue(unsigned int itype, TdmsChannel* channel)
 		{
 			double rval, ival;
 			file >> rval;
-			if (channel)
-				channel->appendValue(rval);
+			/* if (channel) */
+			/* 	channel->appendValue(rval); */
 			file >> ival;
-			if (channel)
-				channel->appendImaginaryValue(ival);
+			/* if (channel) */
+			/* 	channel->appendImaginaryValue(ival); */
 			/* if (d_verbose) */
-			/* 	printf("%g+i*%g (type = 0x%X)\n", rval, ival, itype); */
-			snprintf(output, size, "%g+i*%g", rval, ival);
+				/* printf("%g+i*%g (type = 0x%X)\n", rval, ival, itype); */
+			/* snprintf(output, size, "%g+i*%g", rval, ival); */
 		}
 	break;
 
 	default:
 		{
 			/* if (d_verbose) */
-			/* 	printf(" (unknown type = %d)\n", itype); */
+			printf("OBJECT2 (unknown type = %d)\n", itype);
 		}
 	break;
 	}

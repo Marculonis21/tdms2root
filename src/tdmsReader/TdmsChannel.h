@@ -5,6 +5,7 @@
 #include "TdmsGroup.h"
 #include "endianfstream.hh"
 
+#include <cstdint>
 #include <map>
 #include <string>
 #include <vector>
@@ -59,9 +60,15 @@ public:
 	unsigned int getDataType() const {return dataType;}
 	void setDataType(unsigned int);
 
-	void appendValue(double);
-	const std::vector<double>& getDataVector() {return dataVector;}
-	double getValue(unsigned int) const;
+	void appendValue(uint8_t );
+	void appendValue(uint16_t);
+	void appendValue(uint32_t);
+	void appendValue(uint64_t);
+	const std::vector<uint8_t >&  getDataVector_u8()  {return dataVector_u8;}
+	const std::vector<uint16_t>& getDataVector_u16() {return dataVector_u16;}
+	const std::vector<uint32_t>& getDataVector_u32() {return dataVector_u32;}
+	const std::vector<uint64_t>& getDataVector_u64() {return dataVector_u64;}
+	/* double getValue(unsigned int) const; */
 
 	void appendImaginaryValue(double val){if (d_store_values) imagDataVector.push_back(val);}
 	std::vector<double> getImaginaryDataVector() {return imagDataVector;}
@@ -133,7 +140,12 @@ private:
 	double d_data_sum;
 
 	std::map<std::string, std::string> d_properties;
-	std::vector<double> dataVector;
+
+	std::vector<uint8_t>  dataVector_u8;
+	std::vector<uint16_t> dataVector_u16;
+	std::vector<uint32_t> dataVector_u32;
+	std::vector<uint64_t> dataVector_u64;
+
 	std::vector<double> imagDataVector;
 	std::vector<std::string> stringVector;
 	TdmsGroup *d_group;

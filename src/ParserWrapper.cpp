@@ -73,23 +73,30 @@ void ParserWrapper::ParseBranch(TdmsChannel *ch, TTree *tree, size_t &dataID, si
 
     // fill data into prepared branch structure - with correct types!
     if (dataID == 0) {
-        bs[channelID].WCM = std::vector<uint8_t>(ch->getDataVector().begin(),
-                                                 ch->getDataVector().end());
+        /* bs[channelID].WCM = std::vector<uint8_t>(ch->getDataVector().begin(), */
+        /*                                          ch->getDataVector().end()); */
+        bs[channelID].WCM = ch->getDataVector_u8();
+                            
     } else if (dataID == 1) {
-        bs[channelID].MAX = std::vector<uint16_t>(ch->getDataVector().begin(),
-                                                  ch->getDataVector().end());
+        /* bs[channelID].MAX = std::vector<uint16_t>(ch->getDataVector().begin(), */
+        /*                                           ch->getDataVector().end()); */
+        bs[channelID].MAX = ch->getDataVector_u16();
     } else if (dataID == 2) {
-        bs[channelID].TOT = std::vector<uint32_t>(ch->getDataVector().begin(),
-                                                  ch->getDataVector().end());
+        /* bs[channelID].TOT = std::vector<uint32_t>(ch->getDataVector().begin(), */
+        /*                                           ch->getDataVector().end()); */
+        bs[channelID].TOT = ch->getDataVector_u32();
     } else if (dataID == 3) {
-        bs[channelID].INTEGRAL = std::vector<uint32_t>(
-            ch->getDataVector().begin(), ch->getDataVector().end());
+        /* bs[channelID].INTEGRAL = std::vector<uint32_t>( */
+        /*     ch->getDataVector().begin(), ch->getDataVector().end()); */
+        bs[channelID].INTEGRAL = ch->getDataVector_u32();
     } else if (dataID == 4) {
-        bs[channelID].TIME = std::vector<uint32_t>(ch->getDataVector().begin(),
-                                                   ch->getDataVector().end());
+        /* bs[channelID].TIME = std::vector<uint32_t>(ch->getDataVector().begin(), */
+        /*                                            ch->getDataVector().end()); */
+        bs[channelID].TIME = ch->getDataVector_u32();
     } else if (dataID == 5) {
-        bs[channelID].COUNTER = std::vector<uint64_t>(
-            ch->getDataVector().begin(), ch->getDataVector().end());
+        /* bs[channelID].COUNTER = std::vector<uint64_t>( */
+        /*     ch->getDataVector().begin(), ch->getDataVector().end()); */
+        bs[channelID].COUNTER = ch->getDataVector_u64();
 
         // when all branch data is prepared -> put all into the tree
         FinalizeChannel(tree, channelID);
