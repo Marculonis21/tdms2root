@@ -105,6 +105,8 @@ TdmsChannel.h
 /home/marculonis/Desktop/mySocial/CERN/tdms2root/src/tdmsReader/TdmsGroup.h
 string
 -
+unordered_map
+-
 vector
 -
 
