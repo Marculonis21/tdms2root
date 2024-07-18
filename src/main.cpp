@@ -23,7 +23,8 @@
 
 int main(int argc, char *argv[]) {
     if (argc < 3) {
-        printf("Use: tdms2root your_file_name.tdms output_directory/\n");
+        printf("TDMS to ROOT C++ convertor - CERN MB 07/2024\n"
+               "Use: tdms2root <file_name.tdms> <output_directory>\n");
         return 1;
     }
 

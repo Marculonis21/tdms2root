@@ -11,12 +11,13 @@ analysis.
  building process and the only requirement is for it to be able to find ROOT
  for linking.
 
-## Building 
+## Building and installation
+
+### Building 
 
 Building the application is done through CMake. 
 
 From the main directory do:
-
 ```bash
 cmake -B build
 cd build
@@ -30,9 +31,22 @@ This process should finish with the message:
 [100%] Built target tdms2root
 ```
 
-To test this we can run `./tdms2root` which should output the message: 
+At this point the built binary `tdms2root` should be located in the build
+directory.
+
+### Installation
+To be able to run the application in any directory run the following command
+(this command needs 'sudo' privilages to install into a protected
+`/usr/local/bin` folder):
+```bash
+sudo make install
 ```
-Use: tdms2root your_file_name.tdms output_directory.
+
+To test that everything was done correctly we can run `tdms2root` in the
+command line which should output the following message: 
+
+```
+Use: tdms2root <file_name.tdms> <output_directory>
 ``````
 
 ## Usage
@@ -49,7 +63,7 @@ Running the application (from the build folder/folder with tdms2root
 application) then can look for example look like:
 
 ```bash
-./tdms2root data/example.tdms .
+tdms2root data/example.tdms .
 ```
 
 This example runs conversion of a file `example.tdms` and result is put into

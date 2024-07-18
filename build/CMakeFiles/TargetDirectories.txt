@@ -1,3 +1,0 @@
-/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles/rebuild_cache.dir
-/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles/edit_cache.dir
-/home/marculonis/Desktop/mySocial/CERN/tdms2root/build/CMakeFiles/tdms2root.dir
