@@ -2,7 +2,7 @@
 *.d
 data/
 build/*
-.cache/
+.cache/*
 
 # Compiled Object files
 *.slo
