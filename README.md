@@ -5,11 +5,11 @@ analysis.
 
 ## Requirements
 
-- CMake, Make, C++17
-- The only requirement for the project to work is to have ROOT library (Tested
- with ROOT 6.16) accessible on the machine. CMakeList is supplied to help the
- building process and the only requirement is for it to be able to find ROOT
- for linking.
+Requirements with tested versions: 
+
+- CMake (3.16.3), GNU Make (4.2.1), C++17
+- ROOT library (6.30/0.4) accessible on the machine (`root` in the
+ command line)
 
 ## Building and installation
 
