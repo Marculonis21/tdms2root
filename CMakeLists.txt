@@ -21,10 +21,11 @@ file(GLOB PROJECT_SOURCES
     ${CMAKE_SOURCE_DIR}/src/*.cpp
     ${CMAKE_SOURCE_DIR}/src/*.hpp)
 
-add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
+add_executable(_${PROJECT_NAME} ${PROJECT_SOURCES})
 
-target_link_libraries(${PROJECT_NAME} ROOT::MathCore)
-target_link_libraries(${PROJECT_NAME} ROOT::MathMore)
-target_link_libraries(${PROJECT_NAME} ROOT::Tree)
+target_link_libraries(_${PROJECT_NAME} ROOT::MathCore)
+target_link_libraries(_${PROJECT_NAME} ROOT::MathMore)
+target_link_libraries(_${PROJECT_NAME} ROOT::Tree)
 
-install(TARGETS tdms2root DESTINATION bin)
+install(TARGETS _tdms2root DESTINATION bin)
+install(PROGRAMS ${CMAKE_SOURCE_DIR}/scripts/convert_util.sh DESTINATION bin RENAME tdms2root)
