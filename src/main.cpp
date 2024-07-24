@@ -42,15 +42,15 @@ int main(int argc, char *argv[]) {
     /* std::unique_ptr<TFile> outFile(TFile::Open("testFile.root", "RECREATE")); */
 
     size_t groupCount = parser.GroupCount();
-    printf("\nNumber of groups: %zu\n", groupCount);
+    printf("Number of groups: %zu\n", groupCount);
 
     for (size_t gi = 0; gi < groupCount; gi++) {
         if (parser.ShouldSkipGroup(gi)) { 
             continue; 
         }
-        if (gi % 50 == 0) {
-            printf("Processing group %zu/%zu\n", gi, groupCount);
-        }
+        /* if (gi % 50 == 0) { */
+        /*     printf("Processing group %zu/%zu\n", gi, groupCount); */
+        /* } */
 
         // TTree for each group! 
         auto tree = std::make_unique<TTree>("T_Pulse", "");

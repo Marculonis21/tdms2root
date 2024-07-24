@@ -27,11 +27,11 @@ make
 This process should finish with the message: 
 ```
 ...
-[100%] Linking CXX executable tdms2root
-[100%] Built target tdms2root
+[100%] Linking CXX executable _tdms2root
+[100%] Built target _tdms2root
 ```
 
-At this point the built binary `tdms2root` should be located in the build
+At this point the built binary `_tdms2root` should be located in the build
 directory.
 
 ### Installation
@@ -46,7 +46,9 @@ To test that everything was done correctly we can run `tdms2root` in the
 command line which should output the following message: 
 
 ```
-Use: tdms2root <file_name.tdms> <output_directory>
+Incorrect number of parameters, use-cases:
+ - tdms2root <tdms_file> <output_dir>
+ - tdms2root <dir_of_tdms_files> <output_dir
 ``````
 
 ## Usage
@@ -55,12 +57,12 @@ There are two use-cases of this application prepared:
 
 ### Single conversion
 
-We can use the application to convert one *tdms* file to a *root* file by running the application with two arguments:
+We can use the application to convert one *tdms* file to a *root* file by
+running the application with two arguments:
 1) path to the *tdms* file
-2) path to directory where to put the converted file 
+2) path to output directory 
 
-Running the application (from the build folder/folder with tdms2root
-application) then can look for example look like:
+Example of running the application in this mode:
 
 ```bash
 tdms2root data/example.tdms .
@@ -72,4 +74,20 @@ with root extension (`example.root`).
 
 ### Bulk conversion
 
+During bulk conversion we can select a specific directory with tdms files and
+the application will convert all of them to specified output directory:
+1) path to directory with *tdms* files
+2) path to output directory
 
+If the output directory does not exist and the path is not corresponding to any
+existing file, the application creates a new directory to which converted files
+are saved.
+
+Example of this conversion can look like this:
+```bash
+tdms2root data/ data/out
+```
+
+This example finds all *tdms* files in selected folder (`data/*.tdms`;
+subdirectories are not searched) and converts them into root files which are
+saved into `data/out` directory with same name as originals.

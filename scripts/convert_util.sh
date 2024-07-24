@@ -1,30 +1,42 @@
-#!/usr/bin/env sh
-
-echo "This is the conversion program" 
+#!/usr/bin/env bash
 
 if [ $# -ne 2 ]; then
-    echo "Incorrect number of parameters"
-    echo " - use convert.sh <tdms_file> <output_dir>"
-    echo " - use convert.sh <dir_of_tdms_files> <output_dir>"
+    echo "Incorrect number of parameters, use-cases:"
+    echo " - tdms2root <tdms_file> <output_dir>"
+    echo " - tdms2root <dir_of_tdms_files> <output_dir>"
     exit 1
 fi
 
 TODIR=$2
-echo $TODIR
+# check for existance of output_dir 
 if [ ! -d $TODIR ]; then
-    echo "$TODIR is not a directory"
-    exit 1
+
+    # do not create directory if the name corresponds to an existing file!!!
+    if [ -f $TODIR ]; then
+        echo "$TODIR cannot be an existing file"
+        exit 1
+    fi
+
+    echo "Didn't find directory $TODIR -> CREATED"
+    mkdir -p $TODIR
 fi
 
 INPUT_PATH=$1
-echo $INPUT_PATH
 if [ ! -d $INPUT_PATH ]; then
+    # if input path is not a directory - convert selected file
     echo "Conversion of one file"
 
-    tdms2root $INPUT_PATH $TODIR
+    if [[ ! $INPUT_PATH == *.tdms ]]; then
+        echo "Aborting - Selected file $INPUT_PATH is not a tdms file!"
+        exit 2
+    fi
+
+    _tdms2root $INPUT_PATH $TODIR
+    exit 0
 else
     echo "Conversion of all tdms files in $INPUT_PATH"
 
-    files=$(ls -d $FROMDIR/* | grep .tdms)
-    ls -d $FROMDIR/* | grep .tdms | xargs -P 0 --replace=@ build/tdms2root @ $TODIR
+    # files=$(ls -d $INPUT_PATH/* | grep .tdms)
+    ls -d $INPUT_PATH/* | grep .tdms | xargs -P 0 --replace=@ _tdms2root @ $TODIR
+    exit 0
 fi
