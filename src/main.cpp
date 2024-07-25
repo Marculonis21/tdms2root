@@ -21,15 +21,35 @@
 
 #include "ParserWrapper.hpp"
 
+void printProgress(double percentage) {
+    int barWidth = 70;
+
+    std::cout << "[";
+    int pos = barWidth * percentage;
+    for (int i = 0; i < barWidth; ++i) {
+        if (i < pos) std::cout << "=";
+        else if (i == pos) std::cout << ">";
+        else std::cout << " ";
+    }
+    std::cout << "] " << int(percentage * 100.0) << " %\r";
+    std::cout.flush();
+}
+
 int main(int argc, char *argv[]) {
-    if (argc < 3) {
+    if (argc < 3 || argc > 4) {
         printf("TDMS to ROOT C++ convertor - CERN MB 07/2024\n"
                "Use: tdms2root <file_name.tdms> <output_directory>\n");
         return 1;
     }
 
+    bool showProgress = false;
+
     std::string filePath = argv[1];
     std::string outputDirectory = argv[2];
+    if (argc == 4) {
+        std::string printProgressArg = argv[3];
+        showProgress = printProgressArg == "1";
+    }
 
     // Parse from the fileName
     ParserWrapper parser(filePath);
@@ -42,18 +62,22 @@ int main(int argc, char *argv[]) {
     /* std::unique_ptr<TFile> outFile(TFile::Open("testFile.root", "RECREATE")); */
 
     size_t groupCount = parser.GroupCount();
-    printf("Number of groups: %zu\n", groupCount);
+    if (showProgress) {
+        printf("Number of groups: %zu\n", groupCount);
+    }
 
     for (size_t gi = 0; gi < groupCount; gi++) {
         if (parser.ShouldSkipGroup(gi)) { 
             continue; 
         }
-        /* if (gi % 50 == 0) { */
-        /*     printf("Processing group %zu/%zu\n", gi, groupCount); */
-        /* } */
+
+        if (showProgress && (gi % 10 == 0 || gi == groupCount-1)) {
+            printProgress(double(gi+1)/groupCount);
+        }
 
         // TTree for each group! 
-        auto tree = std::make_unique<TTree>("T_Pulse", "");
+        auto treeName = ("T_Pulse"+std::to_string(gi)).c_str();
+        auto tree = std::make_unique<TTree>(treeName, "");
 
         // Run through channels
         size_t channelCount = parser.ChannelCount(gi);
@@ -72,9 +96,8 @@ int main(int argc, char *argv[]) {
     }
     outFile->Close();
 
-    printf("\nSuccessfully parsed file '%s' (size: %lld bytes).\n",
+    printf("Successfully parsed file '%s' (size: %lld bytes).\n",
            filePath.c_str(), parser.fileSize);
-    printf("Done '%s'!\n", filePath.c_str());
 
     return 0;
 }

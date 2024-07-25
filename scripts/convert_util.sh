@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "TDMS2ROOT convertor - ISOLDE CERN 2024 - MB"
+
 if [ $# -ne 2 ]; then
     echo "Incorrect number of parameters, use-cases:"
     echo " - tdms2root <tdms_file> <output_dir>"
@@ -31,12 +33,14 @@ if [ ! -d $INPUT_PATH ]; then
         exit 2
     fi
 
-    _tdms2root $INPUT_PATH $TODIR
+    _tdms2root $INPUT_PATH $TODIR 1
     exit 0
 else
     echo "Conversion of all tdms files in $INPUT_PATH"
 
-    # files=$(ls -d $INPUT_PATH/* | grep .tdms)
-    ls -d $INPUT_PATH/* | grep .tdms | xargs -P 0 --replace=@ _tdms2root @ $TODIR
+    FILECOUNT=$(ls -d $INPUT_PATH/* | grep .tdms | wc -l)
+    ### if progress bar is wanted - needs pv to be installed
+    # ls -d $INPUT_PATH/* | grep .tdms | xargs -P 0 --replace=@ _tdms2root @ $TODIR 0 | pv -p -l -e -s $(($FILECOUNT*2)) 
+    ls -d $INPUT_PATH/* | grep .tdms | xargs -P 0 --replace=@ _tdms2root @ $TODIR 0
     exit 0
 fi

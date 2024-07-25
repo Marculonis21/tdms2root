@@ -13,39 +13,64 @@ Requirements with tested versions:
 
 ## Building and installation
 
+### Clone repository
+
+Before the build process please clone this repository to your desired location
+(the location does not later alter the functionality of this application).
+Navigate to the directory where you want this to be cloned and run command:
+```bash
+git clone https://github.com/Marculonis21/tdms2root.git
+```
+
+At time of writing this documentation the correct output looks something like
+this: 
+
+```bash
+Cloning into 'tdms2root'...
+remote: Enumerating objects: 371, done.
+remote: Counting objects: 100% (371/371), done.
+remote: Compressing objects: 100% (195/195), done.
+remote: Total 371 (delta 172), reused 343 (delta 146), pack-reused 0
+Receiving objects: 100% (371/371), 28.89 MiB | 2.45 MiB/s, done.
+Resolving deltas: 100% (172/172), done.
+```
+
+When everything was done correctly navigate to the cloned repository with ```cd
+tdms2root``` and proceed to the build step.
+
 ### Building 
 
-Building the application is done through CMake. 
-
-From the main directory do:
+Building of the application is done through CMake. From the main directory run:
 ```bash
 cmake -B build
 cd build
 make
 ```
 
-This process should finish with the message: 
+This process should finish with a message similar to this one: 
 ```
 ...
 [100%] Linking CXX executable _tdms2root
 [100%] Built target _tdms2root
 ```
 
-At this point the built binary `_tdms2root` should be located in the build
-directory.
+At this point the built binary `_tdms2root` should be located in the current
+build directory.
 
 ### Installation
-To be able to run the application in any directory run the following command
-(this command needs 'sudo' privilages to install into a protected
-`/usr/local/bin` folder):
+For us to be able to run the application from any directory we want, we need to
+install the application. Installation process needs *sudo* privilages to
+install into a protected `/usr/local/bin` folder). While staying in the build
+directory run this next command:
 ```bash
 sudo make install
 ```
 
-To test that everything was done correctly we can run `tdms2root` in the
+To test that everything was done correctly we can now run `tdms2root` in the
 command line which should output the following message: 
 
 ```
+TDMS2ROOT convertor - ISOLDE CERN 2024 - MB
 Incorrect number of parameters, use-cases:
  - tdms2root <tdms_file> <output_dir>
  - tdms2root <dir_of_tdms_files> <output_dir
@@ -90,4 +115,4 @@ tdms2root data/ data/out
 
 This example finds all *tdms* files in selected folder (`data/*.tdms`;
 subdirectories are not searched) and converts them into root files which are
-saved into `data/out` directory with same name as originals.
+saved into `data/out` directory with same name as original files. 
