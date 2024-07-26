@@ -59,7 +59,6 @@ int main(int argc, char *argv[]) {
     }
 
     std::unique_ptr<TFile> outFile(TFile::Open((outputDirectory + "/" + parser.fileName +".root").c_str(), "RECREATE"));
-    /* std::unique_ptr<TFile> outFile(TFile::Open("testFile.root", "RECREATE")); */
 
     size_t groupCount = parser.GroupCount();
     if (showProgress) {

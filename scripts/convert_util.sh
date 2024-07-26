@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "TDMS2ROOT convertor - ISOLDE CERN 2024 - MB"
+echo "TDMS2ROOT convertor - ISOLDE CERN 2024 - MBecvar"
 
 if [ $# -ne 2 ]; then
     echo "Incorrect number of parameters, use-cases:"
