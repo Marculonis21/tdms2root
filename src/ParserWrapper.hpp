@@ -12,12 +12,12 @@
 
 class BranchStruct {
   public:
-    std::vector<uint8_t> WCM;
-    std::vector<uint16_t> MAX;
-    std::vector<uint32_t> TOT;
-    std::vector<uint32_t> INTEGRAL;
-    std::vector<uint32_t> TIME;
-    std::vector<uint64_t> COUNTER;
+    std::vector<uint8_t> WCM;       // window coincidence mask - 8bit int
+    std::vector<uint16_t> MAX;      // max amplitude in adc counts
+    std::vector<uint32_t> TOT;      // time over threshold in ticks (8ns)
+    std::vector<uint32_t> INTEGRAL; // integral of signal in adc counts 
+    std::vector<uint32_t> TIME;     // time of arrival ticks (8ns)
+    std::vector<uint64_t> COUNTER;  // id of beta event
 };
 
 class ParserWrapper {
