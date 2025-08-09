@@ -8,9 +8,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_BUILD_TYPE Release)
 
 # find_package(ROOT REQUIRED COMPONENTS MathCore MathMore)
-find_package(ROOT 6.16 CONFIG REQUIRED)
+find_package(ROOT 6.30 CONFIG REQUIRED)
 
-# set(CMAKE_CXX_FLAGS "-Wall -Wextra -std=c++17")
 set(CMAKE_CXX_FLAGS "-std=c++17")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
