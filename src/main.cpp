@@ -37,7 +37,8 @@ void printProgress(double percentage) {
 
 int main(int argc, char *argv[]) {
     if (argc < 3 || argc > 4) {
-        printf("TDMS to ROOT C++ convertor - CERN MB 07/2024\n"
+
+        printf("TDMS2ROOT v1.1 - ISOLDE CERN 2024 - MBecvar\n"
                "Use: tdms2root <file_name.tdms> <output_directory>\n");
         return 1;
     }

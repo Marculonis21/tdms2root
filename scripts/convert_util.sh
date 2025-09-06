@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-echo "TDMS2ROOT convertor - ISOLDE CERN 2024 - MBecvar"
+echo "TDMS2ROOT v1.1 - ISOLDE CERN 2024 - MBecvar"
 
 if [ $# -ne 2 ]; then
     echo "Incorrect number of parameters, use-cases:"
-    echo " - tdms2root <tdms_file> <output_dir>"
-    echo " - tdms2root <dir_of_tdms_files> <output_dir>"
+    echo " SINGLE FILE - tdms2root <tdms_file> <output_dir>"
+    echo "  MULTI FILE - tdms2root <dir_of_tdms_files> <output_dir>"
     exit 1
 fi
 

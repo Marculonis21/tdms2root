@@ -9,7 +9,7 @@ ParserWrapper::ParserWrapper(std::string filePath) {
         return;
     }
 
-    printf("Parsing TDMS File: %s \n", filePath.c_str());
+    printf("Parsing TDMS File: %s \n(this can take a moment...)\n", filePath.c_str());
     bool verbose = false;
     parser->read(verbose);
 
@@ -50,18 +50,22 @@ void ParserWrapper::GetGroupProperties(TTree *tree, size_t groupIndex, bool debu
             printf(" - %s, %s\n", item.first.c_str(), item.second.c_str());
         }
 
-        if (i == 3 || i == 13 || i == 22) {
-            auto p = new TObjString((item.first + ": " + item.second).c_str());
-            tree->GetUserInfo()->Add(p);
-        } else if (i == 12) {
-            auto p =
-                new TParameter<bool>(item.first.c_str(), item.second == "True");
-            tree->GetUserInfo()->Add(p);
-        } else {
-            auto p = new TParameter<float>(item.first.c_str(),
-                                           std::stof(item.second));
-            tree->GetUserInfo()->Add(p);
-        }
+        // changed so GroupProperties are less architecture dependent
+        auto p = new TObjString((item.first + ": " + item.second).c_str());
+        tree->GetUserInfo()->Add(p);
+
+/*         if (i == 3 || i == 13 || i == 22) { */
+/*             auto p = new TObjString((item.first + ": " + item.second).c_str()); */
+/*             tree->GetUserInfo()->Add(p); */
+/*         } else if (i == 12) { */
+/*             auto p = */
+/*                 new TParameter<bool>(item.first.c_str(), item.second == "True"); */
+/*             tree->GetUserInfo()->Add(p); */
+/*         } else { */
+/*             auto p = new TParameter<float>(item.first.c_str(), */
+/*                                            std::stof(item.second)); */
+/*             tree->GetUserInfo()->Add(p); */
+/*         } */
 
         i++;
     }
@@ -71,7 +75,7 @@ void ParserWrapper::ParseBranch(TdmsChannel *ch, TTree *tree, size_t &dataID, si
     // This catches even the empty channel problem because of how GetChannel works
     if (!ch) return;
 
-    // fill data into prepared branch structure - with correct types!
+    // WARN: fill data into prepared branch structure - with correct types!
     if (dataID == 0) {
         bs[channelID].WCM = std::vector<uint8_t>(ch->getDataVector().begin(),
                                                  ch->getDataVector().end());
@@ -93,7 +97,8 @@ void ParserWrapper::ParseBranch(TdmsChannel *ch, TTree *tree, size_t &dataID, si
 
         // when all branch data is prepared -> put all into the tree
         FinalizeChannel(tree, channelID);
-        dataID = -1;
+        dataID = 0;
+        return;
     }
 
     dataID++;
